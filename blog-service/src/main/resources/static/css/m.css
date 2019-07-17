@@ -1,0 +1,226 @@
+ @charset "gb2312";
+
+ /*电脑屏幕*/
+@media screen and (min-width: 1200px) and (max-width: 9999999px) {
+ /*固定博客封面图长宽比例*/
+/*.blogpic { position: relative;height: 0px;padding-top: 12%;margin-top: 5px}
+.blogpic img {position: absolute;top: 0;left: 0;height: 100%;width: 100%;}*/
+/*分页*/
+#message_pagelist a {background-color: white;opacity: 0.8}
+.box{width: 1200px;margin: auto}
+}
+
+
+/* ����960px��С��1199px */
+ @media screen and (min-width: 960px) and (max-width: 1199px) {
+/*header, .tophead, article { width: 100% }
+nav ul li { padding: 10px 10px; }*/
+/*###############################*/
+header { width: 96%; margin: auto }
+article { width: 97% }
+nav { width: 96%; }
+/*###############################*/
+.picshow li i { overflow: hidden; display: block; height: 400px; }
+.picshow .font { display: none }
+.text img { width: 100% }
+.rightbox { margin-right: 0 }
+.picbox { width: 71%; }
+.picbox ul { width: 95%; margin-right: 0 }
+.picbox ul li:hover { box-shadow: 1px 1px 5px #888888; transform: scale(1);}
+.picbox ul li { margin: 0px -10px 7px 5px }
+.picbox ul:nth-child(2) { margin: 0 5px }
+.m-back {left: 90%;width: 49px;height: auto}
+.m-back-index {left: 90%;width: 49px;height: auto}
+#message_pagelist a {background-color: white;opacity: 0.8}
+}
+
+ /* ����768px��С��959px */
+ @media screen and (min-width: 768px) and (max-width: 959px) {
+ article { width: 97% }
+/*##############################################*/
+header { width: 96%; margin: auto }
+.slideUp{transform: translateY(0px);}
+.logo { width: 100%;margin-bottom: -2px; }
+.logo a{ font-size: 30px}
+nav { width: 100%; position: relative }
+#starlist { display: none; background: rgba(0,0,0,.5); width: 100%; margin-left: 0; }
+#starlist li { display: block; padding: 0 0 0 0; width: 60%; background: rgba(255,255,255,1); border-bottom: #f5f5f5 1px solid; }
+.sub { display: block; box-shadow: none; padding-left: 0 }
+#starlist .sub li { border-bottom: none; }
+.menu:after { display: none }
+#mnavh { position: absolute; display: block; top: 8px; left: 10px }
+/*##############################################*/
+ { width: 65% }
+.blogs { width: 65% }
+.sidebar { width: 33% }
+.picshow li i { overflow: hidden; display: block; height: 300px; }
+.picshow .font { display: none }
+.text img { width: 100% }
+.news_infos img { width: 100% }
+.picbox { width: 67%; }
+.picbox ul { width: 95%; margin-right: 0 }
+.picbox ul li { margin: 0px 5px 7px 5px; }
+.paihang li i { width: 40% }
+
+/*.infos {  }*/
+.info-lbox{width: 66%}
+.ad { display: none }
+/*回到顶部*/
+.m-back {left: 90%;width: 49px;height: auto}
+.m-back-index {left: 90%;width: 49px;height: auto}
+#slide_div{display: none}
+/*评论*/
+.Csunbmit{margin-top: 20px}
+ }
+
+
+/* ����480px��С��767px */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+ .motai {display: none}
+ #slide_container {display: none}
+ article { width: 97% }
+ /*#########################################3*/
+ header { width: 96%; margin: auto }
+ .slideUp{transform: translateY(0px);}
+ .logo { width: 100%;margin-bottom: -2px; }
+ .logo a{ font-size: 30px}
+ nav { width: 100%; position: relative }
+ #starlist { display: none; background: rgba(0,0,0,.5); width: 100%; margin-left: 0; }
+ #starlist li { display: block; padding: 0 0 0 0; width: 60%; background: rgba(255,255,255,1); border-bottom: #f5f5f5 1px solid; }
+ .sub { display: block; box-shadow: none; padding-left: 0 }
+ #starlist .sub li { border-bottom: none; }
+ .menu:after { display: none }
+ #mnavh { position: absolute; display: block; top: 8px; left: 10px }
+ #starlist li:last-child{ padding-bottom:100%}
+ #starlist .sub li:last-child{ padding-bottom:0}
+ /*#########################################3*/
+.picshow li i { overflow: hidden; display: block; height: 200px; }
+.picshow .font, .litle span { display: none }
+.text img { width: 100% }
+.info-lbox{width: 62%}
+.sidebar { width: 36% }
+.rightbox { width: 40%; }
+.leftbox { width: 60% }
+.news_infos img { width: 100% }
+.readmore { display: block; overflow: hidden; width: 100%; text-align: center; background: #f2f2f2; padding: 10px 0; margin-top: 10px; clear: both }
+.paihang li i { width: 98% }
+.picbox { width: 64%; }
+.picbox ul { width: 100%; margin-right: 0 }
+.picbox ul:nth-child(2) { margin: 0 5px }
+.picbox ul li { margin: 0px 25px 10px 5px; }
+h1.t_nav span { display: none }
+.ad { display: none }
+/*回到顶部*/
+.m-back {left: 85%;width: 40px;height: 40px}
+.m-back-index {left: 85%;width: 40px;height: 40px}
+.m-back img {width: 40px;height: 40px}
+.m-back:hover img { transform: none }
+.m-back-index img {width: 40px;height: 40px}
+.m-back-index:hover img { transform: none }
+#slide_div{display: none}
+/*评论*/
+.mainContainner{width: 92%}
+.Csunbmit{margin-top: 20px}
+.Csunbmit .comment_input_text{width: 50%}
+.Csunbmit .comment_input_submit{width: 35%}
+ /*分页*/
+}
+
+/********************手机*************************/
+@media only screen and (min-width: 360px) and (max-width: 479px) {
+ .motai {display: none}
+#slide_container {display: none}
+/*#################33*/
+header { width: 96%; margin: auto }
+article{width: 96%; margin-top: 70px}
+ .slideUp{transform: translateY(0px);}
+.tophead,  .leftbox, .sidebar, .blogs { width: 100% }
+ .logo { width: 100%;margin-bottom: -2px; }
+ .logo a{ font-size: 30px}
+nav { width: 100%; position: relative }
+#starlist { display: none; background: rgba(0,0,0,.5); width: 100%; margin-left: 0; }
+#starlist li { display: block; padding: 0 0 0 0; width: 60%; background: rgba(255,255,255,1); border-bottom: #f5f5f5 1px solid; }
+#starlist li:last-child{ padding-bottom:100%}
+#starlist .sub li:last-child{ padding-bottom:0}
+.sub { display: block; box-shadow: none; padding-left: 0 }
+#starlist .sub li { border-bottom: none; }
+.menu:after { display: none }
+#mnavh { position: absolute; display: block; top: 8px; left: 10px }
+/*#################33*/
+.picshow li i { overflow: hidden; display: block; height: 100px; }
+.picshow .font { display: none }
+.text img { width: 100% }
+.news_infos img { width: 100% }
+.rightbox { width: 100%; }
+.readmore { display: block; overflow: hidden; width: 100%; text-align: center; background: #f2f2f2; padding: 10px 0; margin-top: 10px; clear: both }
+/*留言*/
+.picbox { width: 100% }
+.picbox ul { width: 100%; margin: 0 }
+ .picbox ul li { margin: 0px 5px 5px 5px; }
+h1.t_nav span { display: none }
+.info-lbox{width: 100%}
+.ad { display: none }
+/*回到顶部*/
+.m-back {left: 85%;width: 40px;height: 40px}
+.m-back-index {left: 85%;width: 40px;height: 40px}
+.m-back img {width: 40px;height: 40px}
+.m-back:hover img { transform: none }
+.m-back-index img {width: 40px;height: 40px}
+.m-back-index:hover img { transform: none }
+ #slide_div{display: none}
+/*评论*/
+.mainContainner{width: 93%}
+.Csunbmit{margin-top: 20px}
+.Csunbmit .comment_input_text{width: 50%}
+.Csunbmit .comment_input_submit{width: 35%}
+}
+
+/********************小于360**********************/
+@media only screen and (max-width: 359px) {
+ article{width: 96%}
+ .motai {display: none}
+ #slide_container {display: none}
+/*#################33*/
+ header { width: 96%; margin: auto; }
+ .slideUp{transform: translateY(0px);}
+ .tophead, .leftbox, .sidebar, .blogs { width: 100% }
+ .logo { width: 100%;margin-bottom: -2px; }
+ .logo a{ font-size: 30px}
+ nav { width: 100%; position: relative }
+ #starlist { display: none; background: rgba(0,0,0,.5); width: 100%; margin-left: 0; }
+ #starlist li { display: block; padding: 0 0 0 0; width: 60%; background: rgba(255,255,255,1); border-bottom: #f5f5f5 1px solid; }
+ #starlist li:last-child{ padding-bottom:100%}
+ #starlist .sub li:last-child{ padding-bottom:0}
+ .sub { display: block; box-shadow: none; padding-left: 0 }
+ #starlist .sub li { border-bottom: none; }
+ .menu:after { display: none }
+ #mnavh { position: absolute; display: block; top: 8px; left: 10px }
+/*#################33*/
+ article{ margin-top: 70px}
+.picshow li i { overflow: hidden; display: block; height: 100px; }
+.picshow .font { display: none }
+.text img { width: 100% }
+.rightbox { width: 100%; }
+.news_infos img { width: 100% }
+.readmore { display: block; overflow: hidden; width: 100%; text-align: center; background: #f2f2f2; padding: 10px 0; margin-top: 10px; clear: both }
+.picbox { width: 100% }
+.picbox ul { width: 100%; margin: 0 }
+.picbox ul li { margin: 0px 5px 5px 5px; }
+h1.t_nav span { display: none }
+ .info-lbox{width: 100%}
+.ad { display: none }
+/*回到顶部*/
+.m-back {left: 85%;width: 40px;height: 40px}
+.m-back-index {left: 85%;width: 40px;height: 40px}
+.m-back img {width: 40px;height: 40px}
+.m-back:hover img { transform: none }
+.m-back-index img {width: 40px;height: 40px}
+.m-back-index:hover img { transform: none }
+#slide_div{display: none}
+/*评论*/
+.mainContainner{width: 93%}
+.Csunbmit{margin-top: 20px}
+.Csunbmit .comment_input_text{width: 50%}
+.Csunbmit .comment_input_submit{width: 35%}
+
+}

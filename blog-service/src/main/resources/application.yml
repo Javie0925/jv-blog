@@ -1,0 +1,27 @@
+server:
+  port: 8088
+  error:
+    path:
+spring:
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML    # 使用HTML5标准
+  datasource:
+    url: jdbc:mysql://localhost:3306/myblog?serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: 123
+  mvc:
+    static-path-pattern: /static/**
+  redis:
+      host: 192.168.25.128
+jv:
+  blog:
+    msgPageSize: 12
+    indexPageSize: 10
+    searchPageSize: 10
+    hotBlogPageSize: 10
+    categoryPageSize: 10
+    defaultCategory: 1
+
+

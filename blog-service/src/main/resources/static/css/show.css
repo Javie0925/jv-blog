@@ -1,0 +1,46 @@
+
+/*body{padding:50px;}*/
+/*ul{list-style: none;}*/
+
+.commentBox {width: 95%;height:auto;border-bottom: 2px solid #000000;padding: 20px;margin-bottom: 10px;margin-top: 10px}
+.CommentList {width: 96%;height:auto;border-bottom: 1px solid #8f8f8f;padding: 20px;padding-top: 10px;margin-bottom: 10px;margin-top: 10px}
+.commentText {margin-top: 10px}
+.commentText img {width: 30%;border-radius: 5px}
+.Ctop{height: 25px;border-bottom: 1px solid #4962d6;}
+.Ctitle{float: left;font-weight: bold;}
+.Ctip{float: right;color: blue;}
+.Ccount{color:red}
+.Cattitude{float: left;margin-top: 10px;}
+.Ccont{width: 100%;height: 140px;resize: none;margin-top: 10px;}
+.Csunbmit{height: 35px;margin-top: 20px;margin-bottom: 5px;}
+.Cnick{float: left;}
+.Cusername{float: left;height: 25px;}
+.submitBtn{width: 75px;height: 30px;line-height: 26px;background-color: #339b53;text-align: center;display: block;
+    	   color: #FFFFFF;font-size: 12px;border-radius: 6px;float: left;}
+.Corder{margin-bottom: 10px;}
+.comment_input_text { padding-left: 5px; border: 1px solid #ccc; width: 30%; height: 26px; line-height: 26px; background-color: #f2f2f2; float: left; }
+.comment_input_submit { background-color: #333; color: #FFF; float: left; width: 15%; border: none; cursor: pointer; height: 28px; line-height: 28px; }
+
+/*分页样式*/
+.fydiv{width: 100%;text-align: center;height: 10px;margin-top: 10px;}
+.fenye{text-align: center;height: 25px;margin: 0 auto;float: right;}
+.fenye li{color: #FFFFFF;font-size: 12px;float: left;border:1px solid #6CBFB7;height: 26px;line-height: 26px;margin-right: 10px;border-radius: 6px;}
+.fenye li:hover{background-color: #f1f1f1;}
+.fenye li a{text-decoration: none;color:#6CBFB7; display: block; }
+.prev{width: 56px;}
+.next{width: 56px;}
+.numb{width: 26px;}
+.choose{border:1px solid #357973!important;}
+.choose a{color: #357973!important;}
+
+/*分页内容*/
+.Cli{border-bottom: 1px dashed #ccc;text-align: left;font-size: 12px;margin-left: -40px;margin-top:10px; }
+#timeStamp{color: red;}
+#nickname{ }
+#ip{ }
+.Ccontent{width: 98%;padding: 10px; background: #f6f9fb;border:1px solid #ccc;margin-bottom: 10px}
+.bottomSpan:hover{color: red;font-weight: bold; }
+.lays{float: right;color: #64a8d1}
+.scount{color: blue; }
+/*回复*/
+

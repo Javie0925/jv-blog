@@ -1,0 +1,38 @@
+server:
+  port: 10000
+  error:
+    path:
+spring:
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML    # 使用HTML5标准
+  datasource:
+    url: jdbc:mysql://localhost:3306/myblog?serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: 123
+  mvc:
+    static-path-pattern: /static/**
+  redis:
+      host: 192.168.25.128
+jv:
+  blog:
+    msgPageSize: 9
+    indexPageSize: 10
+    searchPageSize: 10
+    hotBlogPageSize: 10
+  jwt:
+      secret: jvblog@Login(Auth}*^31)&javie% # 登录校验的密钥
+      pubKeyPath: F:\\Temp\\rsa\\rsa.pub # 公钥地址
+      priKeyPath: F:\\Temp\\rsa\\rsa.pri # 私钥地址
+      expire: 30 # 过期时间,单位分钟
+      cookieName: JV_BLOG_TOKEN
+
+# 七牛云配置
+# bucket是创建的存储空间名
+# path对应存储空间的访问域名
+qiniu:
+  accessKey: fD3G4wVeO_puSY_3vRuaDbCG8gitQ6tzyrhlGhQQ
+  secretKey: pBqI9m7XayuIBi9J1BJ7dLsJccBKOlOocavxS4cN
+  bucket: jvblog-bucket
+  path: http://psz8x6qnu.bkt.clouddn.com

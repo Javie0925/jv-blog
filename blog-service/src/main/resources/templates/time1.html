@@ -1,0 +1,241 @@
+<!doctype html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JVblog</title>
+    <meta name="keywords" content="个人博客,JV个人博客" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <link href="/css/jv.css" rel="stylesheet">
+    <!--show-time-->
+    <script src="/show-time/js/jquery.min.js" ></script>
+    <script src="/show-time/js/scrollReveal.js"></script>
+    <script src="/show-time/js/time.js" ></script>
+    <!--scroll to top-->
+    <script src="/show-time/js/scroll-to-top.js"></script>
+    <!--时光轴页-->
+    <link href="/css/db-time.css" rel="stylesheet">
+    <script src="/js/db-js/index-prod.js?t=1562760616452"></script>
+
+    <!--图标-->
+    <link rel="shortcut icon" href="/images/icon/favicon.ico" />
+    <script src="/js/jquery-2.1.1.min.js" ></script>
+    <!--固定侧边栏-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/ResizeSensor.min.js"></script>
+    <script type="text/javascript" src="/js/theia-sticky-sidebar.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('.sidebar').theiaStickySidebar({
+                // Settings
+                additionalMarginTop: 30,
+            });
+        });
+    </script>
+    <!--评论-->
+    <link rel="stylesheet" type="text/css" href="/js/assets/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/modernizr.js"></script>
+    <![endif]-->
+    <script th:inline="javascript">
+
+        const blogpageInfo = /*[[${blogpageInfo}]]*/ {};
+        const hotBlogs = /*[[${hotBlogs}]]*/ [];
+        const tagList = /*[[${tagList}]]*/ [];
+        const pageResult = /*[[${pageResult}]]*/ {};
+
+    </script>
+</head>
+<body>
+<div id="timeApp">
+    <!--#######################################################################-->
+    <header class="header-navigation" id="header">
+        <nav>
+            <div class="logo"><a href="/index" v-text="blogpageInfo.blogName"></a></div>
+            <h2 id="mnavh"><span class="navicon"></span></h2>
+            <ul id="starlist">
+                <li><a href="/index">网站首页</a></li>
+                <li><a href="/about">关于我</a></li>
+                <li><a href="/time">时间轴</a></li>
+                <li><a href="/message">留言</a></li>
+                <!--<li class="menu"><a href="jascript:void(0)">学无止境</a>
+                  <ul class="sub">
+                    <li><a href="#">慢生活</a></li>
+                    <li><a href="#">美文欣赏</a></li>
+                  </ul>
+                </li>-->
+                <!--<li><a href="info.html">后台管理</a></li>-->
+                <li ><a href="javascript:void(0)" @click="toAdminPage">后台管理</a></li>
+                <!--<li><a href="time.html">时间轴</a></li>-->
+            </ul>
+            <div class="searchbox">
+                <div id="search_bar" class="search_bar">
+                    <form  id="searchform" action="[!--news.url--]e/search/index.php" method="post" name="searchform">
+                        <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard" v-model="keyword" @keyup.enter="submit" >
+                        <input type="hidden" name="show" value="title" />
+                        <input type="hidden" name="tempid" value="1" />
+                        <input type="hidden" name="tbname" value="news">
+                        <input type="hidden" name="Submit" value="搜索" />
+                        <p class="search_ico" @click="submit"> <span></span></p>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--###########################################################################-->
+
+    <article>
+        <h1 class="t_nav">
+            <span v-text="headerMsg.info"></span>
+            <a href="/index" class="n1">网站首页</a>
+            <a href="javascrip:void(0)" class="n2">博文页</a>
+        </h1>
+        <div class="wrapper">
+            <div class="layout-left">
+                <!--头-->
+                <!--<div class="timeline-header">
+                    <div class="section-title">
+                        <div class="title">
+                            <span class="square"></span>
+                            <span class="main-title">存档时光</span>
+                            <span class="vertical-line"></span>
+                            <span class="sub-title">Articles</span>
+                            <span class="view-more"></span>
+                        </div>
+                        <div class="menu"></div>
+                    </div>
+                </div>-->
+                <!--年-->
+                <div>
+                    <div class="article-list-year-title style-date-year">
+                        <span class="date"><i class="ivu-icon ivu-icon-calendar"></i></span>
+                        <span class="main-title">2019</span>
+                        <span class="vertical-line"></span>
+                        <span class="sub-title">共 <a href="">21</a> 篇</span>
+                    </div> <!----><!---->
+                    <!--月-->
+                    <div>
+                        <div class="article-list-year-title style-date-month">
+                            <span class="date"><i class="ivu-icon ivu-icon-clock"></i></span>
+                            <span class="main-title">3月</span> <span class="vertical-line"></span>
+                            <span class="sub-title">共 <a href="">11</a> 篇</span></div>
+                        <!-----------------------------文章列表------------------------------->
+                        <div class="archive-list-cell">
+                            <div class="info">
+                                <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                    <span class="ivu-tag-text">2019-3-31</span> <!---->
+                                </div>
+                                <div class="base-info">
+                                    <a href="/bookNote/2" class="title">
+                                        Java虚拟机02——对象存活判断和4种引用
+                                    </a>
+                                    <a class="see-desc">查看简介&nbsp;&nbsp;
+                                        <i class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i>
+                                    </a>
+                                    <p class="desc">垃圾收集器在对堆进行回收前，第一件事情就是要确定这些对象之中哪些还“存活”着，哪些已经“死去”</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!------------------------------------------------------------>
+                    </div>
+                    <!--月-->
+                </div>
+                <!--年-->
+            </div>
+            <div class="sidebar">
+                <div class="theiaStickySidebar">
+                    <!--搜索-->
+                    <div class="search">
+                        <input name="keyword" class="input_text" v-model="keyword" value="请输入关键字" @keyup.enter="submit" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+                        <input name="Submit" class="input_submit" value="搜索" type="submit" @click="submit">
+                    </div>
+                    <div class="cloud">
+                        <h2 class="hometitle">标签云</h2>
+                        <ul >
+                            <a :href="'/search/tag/'+v.tagId" v-text="v.tagName+'('+v.blogCount+')'" v-for="v in tagList"></a>
+                        </ul>
+                    </div>
+                    <div class="paihang">
+                        <h2 class="hometitle">点击排行</h2>
+                        <ul>
+                            <li v-for="(v,k) in hotBlogs" :key="k"><i></i><a :href="'/blog/'+v.blogId" v-text="v.title" :title="v.title"></a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="weixin">
+                      <h2 class="hometitle">官方微信</h2>
+                      <ul>
+                        <img src="/images/wx.jpg">
+                      </ul>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </article>
+    <div class="blank"></div>
+    <footer>
+        <p><a href="javascript:void(0)" v-text="blogpageInfo.footerMsg"></a> </p>
+    </footer>
+</div>
+<!--悬浮组件-->
+<a title="回到顶部" class="m-back" href="#" id="g_backtop" hidefocus="true" style="">
+    <img src="/images/back-to-top.png" >
+</a>
+<a title="回到首页" class="m-back-index" href="/index" id="g_backindex" hidefocus="true" style="">
+    <img src="/images/back-to-index2.png" >
+</a>
+<!--vue-->
+<script src="/js/vue/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/common.js"></script>
+<!--vue-->
+<script type="text/javascript">
+    var timeVm = new Vue({
+        el: "#timeApp",
+        data: {
+            jv,
+            window,
+            keyword:"",
+            tagList,
+            hotBlogs,
+            pageResult,
+            blogpageInfo,
+            headerMsg:"",
+        },
+        created(){
+            var headerMsg = JSON.parse(blogpageInfo.headerMsg);
+            this.headerMsg = headerMsg;
+        },
+        methods: {
+            // 搜索
+            submit(){
+                if(this.keyword||!"请输入关键字"===this.keyword){
+                    jv.http.get("/search/check/"+this.keyword).then(resp => {
+                        window.location.href = "/search/"+this.keyword;
+                    }).catch(error => {
+                        window.alert("抱歉，博客找不到。");
+                        this.keyword=""
+                    })
+                }
+            },
+            // 返回主页
+            toAdminPage(){
+                if (this.blogpageInfo.adminUrl){
+                    window.open(this.blogpageInfo.adminUrl);
+                }
+            },
+        },
+
+    })
+</script>
+<!--时光页-->
+<script type="text/javascript" src="/js/db-js/manifest.2ae2e69a05c33dfc65f8.js"></script>
+<script type="text/javascript" src="/js/db-js/vendor.94420250ff1aedc83bf0.js"></script>
+<script type="text/javascript" src="/js/db-js/app.c6d3a4dfb004ea98f188.js"></script>
+<div class="ivu-loading-bar" style="height: 2px; display: none;">
+    <div class="ivu-loading-bar-inner" style="width: 0%; height: 2px; background-color: rgb(92, 184, 92);"></div>
+</div>
+</body>
+</html>

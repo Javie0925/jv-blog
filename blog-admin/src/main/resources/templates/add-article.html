@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文章撰写 - JVblog管理系统</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+<link rel="apple-touch-icon-precomposed" href="/images/icon/icon.png">
+<link rel="shortcut icon" href="/images/icon/favicon.ico">
+<script src="/js/jquery-2.1.4.min.js"></script>
+<!--[if gte IE 9]>
+  <script src="/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+  <script src="/js/html5shiv.min.js" type="text/javascript"></script>
+  <script src="/js/respond.min.js" type="text/javascript"></script>
+  <script src="/js/selectivizr-min.js" type="text/javascript"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+  <script>window.location.href='/upgrade-browser.html';</script>
+<![endif]-->
+  <!--接收后台传递数据-->
+  <script th:inline="javascript">
+
+      const blogDetail = /*[[${blogDetail}]]*/ {};
+      const tagList = /*[[${tagList}]]*/ {};
+      const userInfo = /*[[${userInfo}]]*/ {};
+
+  </script>
+</head>
+
+<body class="user-select">
+<div id="articleApp">
+<section class="container-fluid">
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <a class="navbar-brand" href="/index">JVblogCMS</a> </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right" >
+            <li class="dropdown" title="点击查看或修改个人信息">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${userInfo.username}">
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-left">
+                <li><a title="查看或修改个人信息" data-toggle="modal" data-target="#seeUserInfo">个人信息</a></li>
+              </ul>
+            </li>
+            <li><a href="javascript:void(0)" @click="signOut">退出登录</a></li>
+            <li><a data-toggle="modal" data-target="#WeChat">帮助</a></li>
+          </ul>
+          <form action="javascript:void(0)" method="post" class="navbar-form navbar-right" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索" maxlength="15">
+              <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">搜索</button>
+              </span> </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="row">
+    <aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/index.html">报告</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a class="dropdown-toggle" id="about-me" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">关于我</a>
+          <ul class="dropdown-menu" aria-labelledby="otherMenu">
+            <li><a href="/me.html">基本信息</a></li>
+            <li><a href="/me-text.html">自述</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="/article.html">文章</a></li>
+        <li><a href="/tag.html">标签</a></li>
+        <li><a href="/category.html">栏目</a></li>
+        <li><a href="/comment.html">评论</a></li>
+        <!--<li><a data-toggle="tooltip" data-placement="top" title="网站暂无留言功能">留言</a></li>-->
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a class="dropdown-toggle" id="page" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">页面</a>
+          <ul class="dropdown-menu" aria-labelledby="otherMenu">
+            <li><a href="/page-info.html">统一管理</a></li>
+            <li><a href="/slide.html">滚动图</a></li>
+          </ul>
+        </li>
+        <li><a href="/visitor.html">访客</a></li>
+      </ul>
+    </aside>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+      <div class="row">
+        <form action="" method="post" class="add-article-form" @submit.prevent="submitForm" id="jv-blog-form" enctype="text/plain">
+          <div class="col-md-9">
+            <h1 class="page-header">撰写文章</h1>
+              <input type="hidden" name="blogId" value="blogDetail.blogId">
+            <div class="form-group">
+              <h2 class="add-article-box-title"><span>标题</span></h2>
+              <input type="text" id="article-title" name="title" class="form-control" placeholder="在此处输入标题" v-model="blogDetail.title" required autofocus autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="article-content" class="sr-only">内容</label>
+              <script id="article-content" name="content" type="text/plain" v-html="blogDetail.content" ></script>
+            </div>
+            <!--<div class="add-article-box">
+              <h2 class="add-article-box-title"><span>关键字</span></h2>
+              <div class="add-article-box-content">
+              	<input type="text" class="form-control" placeholder="请输入关键字" value="测试,文章" name="keywords" autocomplete="off">
+                <span class="prompt-text">多个标签请用英文逗号,隔开。</span>
+              </div>
+            </div>-->
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>简介</span></h2>
+              <div class="add-article-box-content">
+              	<textarea class="form-control" name="summary" autocomplete="off" v-model="blogDetail.summary"></textarea>
+                <span class="prompt-text">简介是可选的手工创建的内容总结，并可以在网页描述中使用</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h1 class="page-header">操作</h1>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>文章类型</span></h2>
+              <div class="add-article-box-content">
+                <p><label>请选择：</label>
+                  <input type="radio" name="original" value="1" :checked="blogDetail.original" @click="blogDetail.original=true"/>原创
+                  <input type="radio" name="original" value="0" :checked="!blogDetail.original" @click="blogDetail.original=false"/>转载
+                </p>
+                <p>
+                  <span >
+                    <input class="form-control" placeholder="原文链接" type="text" v-model="blogDetail.originalUrl" />
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>标签</span></h2>
+              <div class="add-article-box-content">
+              <!-- Single button -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                   请选择标签<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li v-for="v in tagList"><a href="javascript:void(0);" v-text="v.tagName"
+                      @click="blogDetail.tag=v.tagName;blogDetail.tagId=v.tagId"></a>
+                  </li>
+                </ul>
+              </div>
+                <div class="add-article-box-content">
+                  <input id="jv-blog-tagName" type="text" class="form-control" :value="blogDetail.tag"  name="tag" autocomplete="off">
+                </div>
+              </div>
+            </div>
+
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>封面图片</span></h2>
+              <img  :src="blogDetail.profileImage" style="width: 200px;height: auto;margin-left: 30px;margin-top: 20px">
+              <div class="add-article-box-content">
+                <input type="text" class="form-control" placeholder="点击按钮选择图片" id="pictureUpload" v-model="blogDetail.profileImage" name="titlepic" autocomplete="off">
+              </div>
+              <div class="add-article-box-footer">
+                <button class="btn btn-default" type="button" ID="upImage">选择</button>
+              </div>
+            </div>
+            <!--作者-->
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>作者</span></h2>
+              <div class="add-article-box-content">
+                <div class="add-article-box-content">
+                  <input id="jv-blog-author" type="text" class="form-control" v-model="blogDetail.author" placeholder="请输入作者名"  name="tag" autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>发布</span></h2>
+              <div class="add-article-box-content">
+              	<p><label>状态：</label>
+                  <!--<span class="article-status-display" v-text="visible?'已发布':'未发布'"></span>-->
+                </p>
+                <p><label>公开度：</label><input type="radio" name="visibility" :value="1" :checked="blogDetail.visible" @click="blogDetail.visible=true"/>公开 <input type="radio" name="visibility" value="0" :checked="!blogDetail.visible" @click="blogDetail.visible=false"/>隐藏</p>
+                <!--<p><label>发布于：</label><span class="article-time-display"><input style="border: none;" type="datetime" name="time" :value="jv.formatDate(blogDetail.createTime)" /></span></p>-->
+              </div>
+              <div class="add-article-box-footer">
+                <button id="jv-blog-submit-button" class="btn btn-primary" type="submit" name="submit">发布</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!--个人信息模态框-->
+<div class="modal fade" id="seeUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form action="javascript:void(0)" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" >个人信息</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table" style="margin-bottom:0px;">
+            <thead>
+              <tr> </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td wdith="20%">用户名:</td>
+                <td width="80%"><input type="text" v-model="userInfo.username" class="form-control" name="username" maxlength="10" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td wdith="20%">旧密码:</td>
+                <td width="80%"><input type="password" v-model="updateUserInfo.oldPassword" class="form-control" name="old_password" maxlength="18" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td wdith="20%">新密码:</td>
+                <td width="80%"><input type="password" v-model="updateUserInfo.newPassword" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td wdith="20%">确认密码:</td>
+                <td width="80%"><input type="password" v-model="updateUserInfo.checkNewPassword" class="form-control" name="new_password" maxlength="18" autocomplete="off" /></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" @click="updateUserInfoFun" class="btn btn-primary">提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--微信二维码模态框-->
+<div class="modal fade user-select" id="WeChat" tabindex="-1" role="dialog" aria-labelledby="WeChatModalLabel">
+  <div class="modal-dialog" role="document" style="margin-top:120px;max-width:280px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="WeChatModalLabel" style="cursor:default;">微信扫一扫</h4>
+      </div>
+      <div class="modal-body" style="text-align:center"> <img src="/images/weixin.jpg" alt="" style="cursor:pointer"/> </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--#############################################vue-start########################################-->
+<script src="/js/vue/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/common.js"></script>
+<!--vue-->
+<script type="text/javascript">
+    var articalVm = new Vue({
+        el: "#articleApp",
+        data: {
+            jv,
+            window,
+            document,
+            tagList,
+            blogDetail,
+            visible:true,
+            userInfo,
+            updateUserInfo:{
+                oldPassword:"",
+                newPassword:"",
+                checkNewPassword:""
+            },
+        },
+        created(){
+            this.visiable = blogDetail.visible;
+        },
+        methods: {
+            submitForm(){
+                if(!this.blogDetail.title||!this.blogDetail.profileImage||!this.blogDetail.summary){
+                    window.alert("数据不能为空");
+                    return;
+                }
+                window.confirm("确认提交？");
+                this.blogDetail.content=editor.getContent();
+                axios.post("/article/add",this.blogDetail).then(resp=>{
+                    let confirm = window.confirm("发布成功，返回文章列表？");
+                    if (confirm){
+                        window.location.href="/article.html";
+                    }
+                    return;
+                }).catch(error=>{
+                    window.alert("发布失败，错误信息:"+error.message)
+                })
+            },
+            updateUserInfoFun(){
+                // 验证数据
+                if(!this.updateUserInfo.oldPassword
+                    ||!this.updateUserInfo.newPassword
+                    ||!this.updateUserInfo.checkNewPassword
+                    ||!this.userInfo.username
+                ){
+                    window.alert("数据不能为空");
+                    return;
+                }
+                if (this.updateUserInfo.checkNewPassword!=this.updateUserInfo.newPassword){
+                    window.alert("两次密码输入不一致，请重新输入！");
+                    return;
+                }
+                window.confirm("确认提交？");
+                // 获取content更新数据
+                axios.put("/auth",{
+                    id:this.userInfo.id,
+                    username:this.userInfo.username,
+                    oldPassword:this.updateUserInfo.oldPassword,
+                    newPassword:this.updateUserInfo.newPassword,
+                    checkNewPassword:this.updateUserInfo.checkNewPassword,
+                }).then(resp=>{
+                    window.alert("修改成功！");
+                    location.reload(true);
+                }).catch(error=>{
+                    window.alert("抱歉，修改失败，用户名已存在或密码错误！")
+                })
+            },
+            signOut(){
+                if(!confirm('是否确认退出？')){
+                    return false;
+                }
+                axios.get("/auth/signout")
+                .then(resp=>{
+                    location.reload(true);
+                }).catch(error=>{
+
+                })
+            }
+        },
+        watch: {
+        }
+
+    })
+
+</script>
+<!--#############################################vue-end#######################################-->
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/admin-scripts.js"></script>
+<script src="/lib/ueditor/ueditor.config.js"></script>
+<script src="/lib/ueditor/ueditor.all.min.js"> </script>
+<script src="/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script id="uploadEditor" type="text/plain" style="display:none;"></script>
+<script type="text/javascript">
+  var editor = UE.getEditor('article-content');
+  window.onresize=function(){
+      // window.location.reload();
+      //window.alert(editor);
+  }
+  var _uploadEditor;
+  $(function () {
+      //重新实例化一个编辑器，防止在上面的editor编辑器中显示上传的图片或者文件
+      _uploadEditor = UE.getEditor('uploadEditor');
+      _uploadEditor.ready(function () {
+          //设置编辑器不可用
+          //_uploadEditor.setDisabled();
+          //隐藏编辑器，因为不会用到这个编辑器实例，所以要隐藏
+          _uploadEditor.hide();
+          //侦听图片上传
+          _uploadEditor.addListener('beforeInsertImage', function (t, arg) {
+              //将地址赋值给相应的input,只去第一张图片的路径
+              // window.alert(arg[0].src);
+              $("#pictureUpload").attr("value", arg[0].src);
+              blogDetail.profileImage = arg[0].src;
+              //图片预览
+              //$("#imgPreview").attr("src", arg[0].src);
+          })
+          //侦听文件上传，取上传文件列表中第一个上传的文件的路径
+          _uploadEditor.addListener('afterUpfile', function (t, arg) {
+              $("#fileUpload").attr("value", _uploadEditor.options.filePath + arg[0].url);
+          })
+      });
+  });
+  //弹出图片上传的对话框
+  $('#upImage').click(function () {
+      var myImage = _uploadEditor.getDialog("insertimage");
+      myImage.open();
+      // 将文件地址添加到文本框
+      /*var getImgUrlInterval = window.setInterval(function () {
+          if(_uploadEditor.getContent().length>20){
+              $('#pictureUpload').innerText=_uploadEditor.getContent().slice(14,-20);
+              window.alert(_uploadEditor.getContent().slice(14,-20));
+              clearInterval(getImgUrlInterval);
+          }
+      },3000);*/
+  });
+  //弹出文件上传的对话框
+  function upFiles() {
+      var myFiles = _uploadEditor.getDialog("attachment");
+      myFiles.open();
+  };
+</script>
+</body>
+</html>

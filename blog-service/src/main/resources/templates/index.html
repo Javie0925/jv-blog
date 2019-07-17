@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>JVblog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" >
+<link href="/css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
+<link href="/css/m.css" th:href="@{/css/m.css}" rel="stylesheet" />
+<link href="/css/jv.css" th:href="@{/css/jv.css}" rel="stylesheet" />
+<!--show-time-header-->
+<script src="/show-time/js/jquery.min.js" ></script>
+<script src="/show-time/js/scrollReveal.js"></script>
+<script src="/show-time/js/time.js" ></script>
+<!--banner-->
+<script src="/show-time/js/banner.js" ></script>
+<script src="/show-time/js/jquery.easyfader.min.js" ></script>
+<link href="/show-time/css/banner.css" rel="stylesheet" />
+<!--blogs-->
+<link href="/show-time/css/blogs.css" rel="stylesheet" />
+  <!--google search-->
+<link href="/css/gsearch.css" rel="stylesheet" />
+<!--blogtab-->
+<!--<link href="/show-time/css/blogtag.css" rel="stylesheet" />-->
+<script src="/show-time/js/hc-sticky.js"></script>
+<!--scroll to top-->
+<script src="/show-time/js/scroll-to-top.js"></script>
+
+  <!--图标-->
+<link rel="shortcut icon" href="/images/icon/favicon.ico" />
+<!--轮播图--><!--zoom-->
+<link href="/css/zoom.css" th:href="@{/css/zoom.css}" rel="stylesheet" />
+<!--<link href="/css/slide.css" th:href="@{/css/slide.css}" rel="stylesheet" />-->
+<!--固定侧边栏-->
+<!--<script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>-->
+<script type="text/javascript" src="/js/ResizeSensor.min.js"></script>
+<script type="text/javascript" src="/js/theia-sticky-sidebar.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.sidebar').theiaStickySidebar({
+            // Settings
+            additionalMarginTop: 30
+        });
+    });
+    /*Theia Sticky Sidebar滚动固定侧边栏插件的可用配置参数有：
+
+      containerSelector：侧边栏的父容器元素。如果没有指定直接使用侧边栏的父元素。
+      additionalMarginTop：可选值。指定侧边栏的顶部margin值，单位像素，默认为0像素。
+      additionalMarginBottom：可选值。指定侧边栏的底部margin值，单位像素，默认为0像素。
+      updateSidebarHeight：是否更新侧边栏的高度。默认为true。
+      minWidth：如果侧边栏的宽度小于这个值，将恢复为正常尺寸。默认值为0。（该选项用于响应式设计）
+      defaultPosition：侧边栏必须是非static的定位方式。默认为relative定位方式。
+      namespace：绑定事件的命名空间。默认为TSS。
+      */
+</script>
+
+
+
+  <!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+<script th:inline="javascript">
+
+    const pageResult = /*[[${pageResult}]]*/ {};
+    const tagList = /*[[${tagList}]]*/ [];
+    const hotBlogs = /*[[${hotBlogs}]]*/ [];
+    const blogpageInfo = /*[[${blogpageInfo}]]*/ {};
+    const aboutMe = /*[[${aboutMe}]]*/ {};
+    const slidePicList = /*[[${slidePicList}]]*/ {};
+
+</script>
+</head>
+<body>
+<div id="articalApp">
+  <!--欢迎-->
+  <div class="index_welcome_head">
+    <div>
+      <span>欢迎来到JV's blog～</span>
+      您是第<span v-text="blogpageInfo.visit"></span>位访客～
+    </div>
+  </div>
+  <!--#########################################################################################-->
+  <header class="header-navigation" id="header">
+    <nav>
+      <div class="logo"><a href="/index" v-text="blogpageInfo.blogName"></a></div>
+      <h2 id="mnavh"><span class="navicon"></span></h2>
+      <ul id="starlist">
+        <li><a href="/index">网站首页</a></li>
+        <li><a href="/about">关于我</a></li>
+        <li class="menu"><a href="/category">文章分类</a>
+          <ul class="sub">
+            <li v-for="(v,k) in blogpageInfo. categoryList" :key="k"><a :href="'/category/'+v.cid" v-text="v.cname"></a></li>
+          </ul>
+        </li>
+        <li><a href="/search/tag">标签云</a></li>
+        <li><a href="/time">时间轴</a></li>
+        <li><a href="/message">留言</a></li>
+        <li ><a href="javascript:void(0)" @click="toAdminPage">后台管理</a></li>
+      </ul>
+      <div class="searchbox">
+        <div id="search_bar" class="search_bar">
+          <form  id="searchform" action="javascript:void(0)" method="post" name="searchform">
+            <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard" v-model="keyword" @keyup.enter="submit" >
+            <input type="hidden" name="show" value="title" />
+            <input type="hidden" name="tempid" value="1" />
+            <input type="hidden" name="tbname" value="news">
+            <input type="hidden" name="Submit" value="搜索" />
+            <p class="search_ico" @click="submit"> <span></span></p>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!--#########################################################################################-->
+  <!--点击放大-->
+  <div id="motai">
+    <img id="img_motai"  />
+    <div id="img_motai_captain"></div>
+  </div>
+<article>
+  <div class="blogs">
+    <!--轮播图-->
+    <!--banner begin-->
+    <div class="banner">
+      <div id="banner" class="fader">
+        <li class="slide" v-for="v in slidePicList"><a :href="v.link"><img :src="v.url"><span class="imginfo" v-text="v.text"></span></a></li>
+        <div class="fader_controls">
+          <div class="page prev" data-target="prev">&lsaquo;</div>
+          <div class="page next" data-target="next">&rsaquo;</div>
+          <ul class="pager_list">
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--banner end-->
+    <!--置顶-->
+    <div class="index_topping">
+      <h3 class="topping_name">博主置顶</h3>
+      <h3 class="topping_title" >
+        <a :href="'/blog/'+blogpageInfo.blogDetail.blogId" v-text="blogpageInfo.blogDetail.title.substring(0,50)"></a>
+      </h3>
+      <p v-text="blogpageInfo.blogDetail.summary.substring(0,170)+'...'"></p>
+    </div>
+
+  <div class="index_blogs_head">
+    <h3>
+      <a href="javascript:void(0)" :class="{index_blogs_head_sort_active:sortBy.createTime,index_blogs_head_sort_inactive:!sortBy.createTime}" @click="sortByCreateTime">最新发布</a>
+      <span style="font-size: 15px;color: #8f8f8f">&emsp;|&emsp;</span>
+      <a href="javascript:void(0)" :class="{index_blogs_head_sort_active:sortBy.comment,index_blogs_head_sort_inactive:!sortBy.comment}" @click="sortByComment">最多评论</a>
+      <span style="font-size: 15px;color: #8f8f8f">&emsp;|&emsp;</span>
+      <a href="javascript:void(0)" :class="{index_blogs_head_sort_active:sortBy.watch,index_blogs_head_sort_inactive:!sortBy.watch}" @click="sortByWatch">最多点击</a>
+      <!--<img src="https://hbimg.huabanimg.com/1428175b4a84e36cb67e67c87a1b331368f4eba4186ab-JVjz2K" style="height: 25px;width: auto;float: right">-->
+      <!--<a href="javascript:void(0)"  style="float: right">备战秋招</a>-->
+    </h3>
+  </div>
+    <!--文章列表-->
+    <div class="blogs-div" data-scroll-reveal="enter bottom over 1s" v-for="(v,k) in pageResult.itemList" :key="k">
+      <h3 class="blogtitle"><a :href="'/blog/'+v.blogId" v-text="v.title"></a></h3>
+      <span class="blogpic"><a href="/" title=""><img :src="v.profileImage" alt=""></a></span>
+      <p class="blogtext" ><a v-text="v.summary"></a></p>
+      <div class="bloginfo">
+        <ul>
+          <!--<li class="author"><a href="javascript:void(0)" v-text="v.author"></a></li>-->
+          <li class="lmname"><a :href="'/search/tag/'+v.tagId" :title="v.tag" v-text="v.tag"></a></li>
+          <li class="timer" v-text="jv.formatDate(v.createTime,'yyyy-MM-dd')"></li>
+          <li class="view"><span v-text="v.watch"></span></li>
+          <li class="commentnum"><span v-text="v.commentNum"></span></li>
+          <!--<li class="likeNum">9999</li>-->
+        </ul>
+      </div>
+    </div>
+    <!--分页-->
+    <div class="pagelist">
+      <a href="javascript:void(0)" title="Total record" v-text="'共'+pageResult.totalPage+'页'"></a>
+      <span v-if="currentPage!=1">
+        <a href="javascript:void(0)" @click="currentPage=1">首页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >首页</a>
+      </span>
+      <span v-if="currentPage!=1">
+        <a href="javascript:void(0)" @click="prePage">上一页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >上一页</a>
+      </span>
+      <span  v-for="i in Math.min(5,pageResult.totalPage)" v-if="i<=pageResult.totalPage" :key="i">
+        <span v-if="index(i)===currentPage">
+          <b v-text="index(i)"></b>
+        </span>
+        <span v-else>
+          <a href="javascript:void(0)" @click="currentPage=index(i)" v-text="index(i)"></a>
+        </span>
+      </span>
+      <span v-if="currentPage!=pageResult.totalPage">
+        <a href="javascript:void(0)" @click="nextPage">下一页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >下一页</a>
+      </span>
+    <span>
+      <span v-if="currentPage!=pageResult.totalPage">
+        <a href="javascript:void(0)" @click="currentPage=pageResult.totalPage">尾页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >尾页</a>
+      </span>
+    </span>
+    </div>
+  </div>
+  <!--侧边栏-->
+  <div class="sidebar">
+    <!--GitHub-->
+    <a href="https://github.com/Javie0925" target="_blank">
+      <img style="position: absolute; top: 0px; right: 0px; border: 0;z-index: 500" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png">
+    </a>
+    <!--aboutMe-->
+    <div class="about">
+      <div class="avatar"> <img :src="aboutMe.avator" alt="" id="avator_img"> </div>
+      <p class="abname" v-text="aboutMe.nickname"></p>
+      <p class="abposition" v-text="aboutMe.job"></p>
+      <div class="abtext" v-text="aboutMe.summary"></div>
+    </div>
+    <!--搜索-->
+    <div class="search">
+      <div class="RNNXgb" >
+        <div class="SDkEP">
+          <div class="a4bIc" >
+            <div class="vdLsw gsfi"></div>
+            <input class="gLFyf gsfi" maxlength="2048" placeholder="请输入关键字" v-model="keyword" type="text" @keyup.enter="submit">
+          </div>
+      </div>
+        <button class="Tg7LZd" type="button" @click="submit">
+          <div class="rINcab">
+            <span class="z1asCe MZy1Rb">
+              <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+              </svg>
+            </span>
+          </div>
+        </button>
+      </div>
+        <!--<input name="keyword" id="keyboard1" class="input_text" v-model="keyword" value="请输入关键字" @keyup.enter="submit" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit" @click="submit">-->
+    </div>
+    <div class="cloud">
+      <h2 class="hometitle">标签云</h2>
+      <ul>
+        <a :href="'/search/tag/'+v.tagId" v-text="v.tagName+'('+v.blogCount+')'" v-for="(v,k) in tagList" :key="k"></a>
+      </ul>
+    </div>
+    <div class="paihang">
+      <h2 class="hometitle">点击排行</h2>
+      <ul>
+        <li v-for="(v,k) in hotBlogs" :key="k"><i></i><a :href="'/blog/'+v.blogId" v-text="v.title" :title="v.title"></a></li>
+      </ul>
+    </div>
+    <div v-if="links.show">
+    <div class="links">
+      <h2 class="hometitle">友情链接</h2>
+      <ul>
+        <li v-for="v in links.data"><a :href="v.ip" title="" v-text="v.name" target="_blank"></a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</article>
+<div class="blank"></div>
+<footer>
+  <div class="box">
+    <div class="wxbox">
+      <ul>
+        <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110009159146BeUjcv.png"><span>本站地址</span></li>
+        <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110010281916RyaKXz.png"><span>GitHub地址</span></li>
+      </ul>
+    </div>
+    <div class="endnav">
+      <p><b>站点声明：</b></p>
+      <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925" target="_blank">https://github.com/Javie0925</a>，欢迎☆star☆。</p>
+      <p>2、所有文章均可转载、摘编、复制或建立镜像。</a></p>
+      <p>Copyright © <a href="http://jvblog.nat100.top" target="_blank">jvblog.nat100.top</a> All Rights Reserved. </p><!--备案号：<a target="_blank" style="display: none">闽xxx备xxxxxxxx</a>-->
+    </div>
+  </div>
+</footer>
+</div>
+<!--悬浮组件-->
+<a title="回到顶部" class="m-back" href="#" id="g_backtop" hidefocus="true" style="">
+  <img src="/images/back-to-top.png" >
+</a>
+<a title="回到首页" class="m-back-index" href="/index" id="g_backindex" hidefocus="true" style="">
+  <img src="/images/back-to-index2.png" >
+</a>
+<!--vue-->
+<script src="/js/vue/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/common.js"></script>
+<!--vue-->
+<script type="text/javascript">
+  var articalVm = new Vue({
+      el: "#articalApp",
+      data: {
+          jv,
+          window,
+          zoom:"",
+          keyword: "",
+          tagList,
+          pageResult,
+          hotBlogs,
+          currentPage:1,
+          slidePicList,
+          aboutMe,
+          blogpageInfo,
+          links:{},
+          contact:{},
+          sortBy:{
+              createTime:true,
+              comment:false,
+              watch:false
+          },
+          sortByVal:"create_time",
+      },
+      created(){
+        this.currentPage=this.pageResult.currentPage;
+        // 解析links
+        var links = JSON.parse(this.blogpageInfo.links);
+        this.links = links;
+        // 解析contact
+        var contact = JSON.parse(this.aboutMe.contact);
+        this.contact=contact;
+      },
+      methods: {
+          index(i){
+              if(this.pageResult.totalPage <= 5){
+                  // 如果当前页小于等于3或者总页数小于等于5
+                  return i;
+              } else if(this.pageResult.totalPage > 5 && this.currentPage<=3){
+                  return i;
+              } else if(this.pageResult.totalPage > 5 && this.currentPage == this.pageResult.totalPage){
+                  return this.currentPage-5+i;
+              } else if(this.pageResult.totalPage > 5 && this.currentPage == this.pageResult.totalPage-1){
+                  return this.currentPage-4+i;
+              } else if(this.pageResult.totalPage > 5 && this.currentPage == this.pageResult.totalPage-2){
+                  return this.currentPage-3+i;
+              } else {
+                  // 如果当前页大于3
+                  return this.currentPage - 3 + i;
+              }
+          },
+          prePage(){
+              if(this.currentPage > 1){
+                  this.currentPage--
+              }
+          },
+          nextPage(){
+              if(this.currentPage < this.pageResult.totalPage){
+                  this.currentPage++
+              }
+          },
+          submit(){
+              if(this.keyword||!"请输入关键字"===this.keyword){
+                  jv.http.get("/search/check/"+this.keyword).then(resp => {
+                      window.location.href = "/search/"+this.keyword;
+                  }).catch(error => {
+                      //window.alert(error);
+                      window.alert("抱歉，博客未找到。");
+                      this.keyword="";
+                  })
+              }
+          },
+          toAdminPage(){
+              if (this.blogpageInfo.adminUrl){
+                  window.open(this.blogpageInfo.adminUrl);
+              }
+          },
+          sortByCreateTime(){
+              this.sortBy = {
+                  createTime:true,
+                  comment:false,
+                  watch:false
+              };
+              this.sortByVal="create_time";
+              axios.get("/index/create_time")
+              .then(resp=>{
+                  this.pageResult = resp.data;
+                  this.currentPage=1;
+              }).catch(error=>{
+
+              })
+          },
+          sortByComment(){
+              this.sortBy = {
+                  createTime:false,
+                  comment:true,
+                  watch:false
+              };
+              this.sortByVal="comment_num";
+              axios.get("/index/comment_num")
+                  .then(resp=>{
+                      this.pageResult = resp.data;
+                      this.currentPage=1;
+                  }).catch(error=>{
+
+              })
+          },
+          sortByWatch(){
+              this.sortBy = {
+                  createTime:false,
+                  comment:false,
+                  watch:true
+              };
+              this.sortByVal="watch";
+              axios.get("/index/watch")
+                  .then(resp=>{
+                      this.pageResult = resp.data;
+                      this.currentPage=1;
+                  }).catch(error=>{
+
+              })
+          }
+      },
+      watch: {
+          currentPage:{
+              deep:true,
+              handler(val,old){
+                  jv.http.get("/page/"+this.currentPage,{
+                      params:{
+                          sortBy:this.sortByVal
+                      }
+                  }).then(resp => {
+                      this.pageResult = resp.data;
+                  }).catch(error => {
+                      window.alert("页面信息错误");
+                  })
+              }
+          }
+      }
+
+  })
+
+</script>
+<!--<script src="/js/nav.js"></script>-->
+
+<!--轮播图-->
+<script type="text/javascript">
+    window.onload = function(){
+        //欢迎标签
+        window.setTimeout(
+            "document.getElementsByClassName(\"index_welcome_head\")[0].style.display='none';"
+            ,5000);
+        // 导航栏
+        /*var oH2 = document.getElementsByTagName("h2")[0];
+        var oUl = document.getElementsByTagName("ul")[0];
+        oH2.onclick = function ()
+        {
+            var style = oUl.style;
+            style.display = style.display == "block" ? "none" : "block";
+            oH2.className = style.display == "block" ? "open" : ""
+        }*/
+
+
+
+        // 轮播图
+       /* var list = document.getElementById('slide_list');
+        var prev = document.getElementById('prev');
+        var next = document.getElementById('next');
+        var container = document.getElementById('slide_container');
+        var span = document.getElementsByName('slide_span');
+        var num = 1;
+        var width = 830;
+        var totalWidth = 4150;
+
+        function left_right(offset){
+            var nowLeft = parseInt(list.style.left);  //将600px转化为数字600，方便相加
+            var nextLeft = nowLeft + offset;
+            list.style.left = nextLeft + 'px';
+            if(nextLeft > -width){
+                list.style.left = '-'+totalWidth+'px';
+            }
+            if(nextLeft < -totalWidth){
+                list.style.left = '-'+width+'px';
+            }
+        }
+
+        prev.onclick = function(){
+            left_right(width);
+            num-=1;
+            if(num<1){num=5;}
+            circle();
+        }
+
+        next.onclick = function(){
+            left_right(-width);
+            num+=1;
+            if(num>5){num=1;}
+            circle();
+        }
+
+        function play(){
+            timer = setInterval(function(){
+                next.onclick();
+            },3000);
+        }
+        play();
+
+        function stop(){
+            clearInterval(timer);
+        }
+
+        function circle(){
+            for(var i=1; i<=span.length; i++){
+                if(i==num){
+                    span[num-1].className = 'on';
+                }else{
+                    span[i-1].className = '';
+                }
+            }
+        }
+
+        container.onmouseover = stop;
+        container.onmouseout = play;
+
+        for(var i=0; i<span.length; i++){
+            span[i].onclick = function(){
+                var index = this.getAttribute('index');
+                left_right(-width*(num-index));
+                num = index;
+                circle();
+            }
+        }*/
+
+
+        // 点击放大
+        var img = document.getElementById('avator_img');
+        var motai = document.getElementById('motai');
+        var motai_img =  document.getElementById('img_motai');
+        var captain = document.getElementById('img_motai_captain');
+
+        img.onclick = function(){
+            motai.style.display = 'block';
+            motai_img.src = this.src;
+            captain.innerText = this.alt;
+        }
+
+        motai_img.onclick = function(){
+            motai.style.display = 'none';
+        }
+    }
+
+</script>
+<!--特效背景-->
+<script src="/js/skin/canvas-nest.min.js" count="200" zindex="-2" opacity="0.8" color="47,135,193" type="text/javascript"></script>
+</body>
+</html>

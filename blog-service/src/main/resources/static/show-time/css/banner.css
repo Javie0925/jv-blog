@@ -1,0 +1,30 @@
+@charset "gb2312";
+/*banner*/
+.banner { width: 100%; overflow: hidden; float: left; margin-bottom: 20px;}
+.fader { position: relative; width: 100%; padding-top: 45%; font-family: "futura", arial; overflow: hidden; }
+.fader .slide { position: absolute; width: 100%; top: 0; z-index: 1; opacity: 0; height: 100%; }
+.fader .slide img { width: 100%; height: 100%; }
+.fader .prev, .fader .next { position: absolute; height: 80px; line-height: 55px; width: 50px; font-size: 100px; text-align: center; color: #fff; top: 50%; left: 50px; z-index: 4; margin-top: -25px; cursor: pointer; opacity: 0; transition: all 150ms; }
+.fader .next { left: auto; right: 50px; }
+.fader .pager_list { position: absolute; width: 100%; height: 40px; padding: 0; line-height: 40px; bottom: 0; text-align: center; z-index: 4; }
+.fader .pager_list li { display: inline-block; width: 15px; height: 15px; margin: 0 7px; background: #fff; opacity: .3; text-indent: -9999px; border-radius: 999px; cursor: pointer; transition: all 150ms; }
+.fader .pager_list li:hover, .fader .pager_list li.active { opacity: 1; }
+.banner:hover .fader_controls .page.prev { opacity: 0.5; left: 0 }
+.banner:hover .fader_controls .page.next { opacity: 0.5; right: 0 }
+.imginfo { z-index: 9; position: absolute; font-size: 26px; color: #FFF; display: block; overflow: hidden; bottom: 12%; left: 0; right: 0; display: block; background: rgba(0,0,0,.4); padding: 0 40px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+
+
+@media screen and (min-width: 768px) and (max-width: 959px) {
+    .imginfo { font-size: 18px }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px){
+    .toppic { display: none }
+}
+
+@media only screen and (max-width: 479px) {
+    .banner {margin-bottom: 10px}
+    .fader { position: relative; width: 100%; padding-top: 45%; font-family: "futura", arial; overflow: hidden; }
+    .pager_list { display: none }
+    .imginfo { font-size: 20px }
+}

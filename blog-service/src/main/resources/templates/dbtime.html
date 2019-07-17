@@ -1,0 +1,554 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1.user-scalable=no">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <script>document.write('<script src="/static/config/index-prod.js?t=' + new Date().getTime() + '"><\/script>');</script>
+    <script src="/static/config/index-prod.js?t=1562760616452"></script>
+    <title>dbblog-加油！</title>
+    <link href="/static/css/app.8b3d24424e86c5f085050683b22a6f41.css" rel="stylesheet">
+</head>
+<body class="docs">
+<div id="app">
+    <div class="main-wrapper">
+        <div class="simple-header">
+            <div id="mobile-bar"><a class="menu-button"></a> <a href="/" class="logo router-link-active"></a></div>
+            <div id="header"><a href="/" class="router-link-active" id="logo"><img src="/static/img/logo.9e8579c.png">
+                <span class="title">DB's Blog</span> <span class="motto">success belongs to the persevering</span></a>
+                <ul id="nav">
+                    <li>
+                        <form id="search-form" action="/articles/search"><span class="algolia-autocomplete"
+                                                                               style="position: relative; display: inline-block; direction: ltr;"><input
+                                type="text" id="search-query-nav" name="keywords" autocomplete="off" spellcheck="false"
+                                role="combobox" aria-autocomplete="list" aria-expanded="false"
+                                aria-owns="algolia-autocomplete-listbox-0" dir="auto"
+                                class="search-query st-default-search-input aa-input"
+                                style="position: relative; vertical-align: top;"> <pre aria-hidden="true"
+                                                                                       style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre> <span
+                                role="listbox" id="algolia-autocomplete-listbox-0" class="aa-dropdown-menu"
+                                style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div
+                                class="aa-dataset-1"></div></span></span></form>
+                    </li>
+                    <li><a href="/articles" class="nav-link contribute">文章</a></li>
+                    <li><a href="/books" class="nav-link contribute">阅读</a></li>
+                    <li><a href="/timeline" class="nav-link contribute">时光轴</a></li>
+                    <li><a href="/article/1" class="nav-link contribute">关于</a></li>
+                </ul>
+            </div>
+            <div class="side-bar">
+                <div class="main-area">
+                    <div class="top-wrapper">
+                        <div class="top-area"><img
+                                src="data:image/jpeg;base64,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"
+                                alt="">
+                            <div class="site-info"><h1 class="site-name">DB's Blog</h1>
+                                <h1 class="site-desc">Write the code, Change the World</h1></div>
+                        </div>
+                        <div class="sidebar-menus">
+                            <div class="site-nav"><p><i class="ivu-icon ivu-icon-map"></i>
+                                文章导航
+                            </p></div>
+                            <ul class="nav-menu">
+                                <li class="nav-dropdown-container"><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                    <a href="/articles/category/1" class="nav-link">漫谈<span class="arrow"></span></a>
+                                    <ul class="nav-dropdown">
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a href="/articles/category/2"
+                                                                                             class="nav-link">本站相关</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/3" class="nav-link">关于</a></li>
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/23" class="nav-link">技巧</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-dropdown-container"><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                    <a href="/articles/category/9" class="nav-link">后端<span class="arrow"></span></a>
+                                    <ul class="nav-dropdown">
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a
+                                                href="/articles/category/11" class="nav-link">Java基础</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/12" class="nav-link">面试</a></li>
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/26" class="nav-link">设计模式</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a
+                                                href="/articles/category/14" class="nav-link">Java进阶</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/15" class="nav-link">JVM</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a
+                                                href="/articles/category/21" class="nav-link">工具</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/22" class="nav-link">Arthas</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a
+                                                href="/articles/category/24" class="nav-link">框架</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/25" class="nav-link">Spring</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-dropdown-container"><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                    <a href="/articles/category/18" class="nav-link">大数据<span class="arrow"></span></a>
+                                    <ul class="nav-dropdown">
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a
+                                                href="/articles/category/19" class="nav-link">中间件</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/articles/category/20" class="nav-link">ElasticSearch</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebar-menus">
+                            <div class="site-nav"><p><i class="ivu-icon ivu-icon-map"></i>
+                                阅读导航
+                            </p></div>
+                            <ul class="nav-menu">
+                                <li class="nav-dropdown-container"><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                    <a href="/books/category/4" class="nav-link">后端<span class="arrow"></span></a>
+                                    <ul class="nav-dropdown">
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a href="/books/category/5"
+                                                                                             class="nav-link">Java进阶</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/books/category/6" class="nav-link">JVM</a></li>
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/books/category/30" class="nav-link">多线程</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-dropdown-container"><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                    <a href="/books/category/27" class="nav-link">算法与数据结构<span class="arrow"></span></a>
+                                    <ul class="nav-dropdown">
+                                        <li><i class="ivu-icon ivu-icon-minus-round"></i> <a href="/books/category/28"
+                                                                                             class="nav-link">算法</a>
+                                            <ul class="nav-dropdown">
+                                                <li><i class="ivu-icon ivu-icon-minus-round"></i>&nbsp;
+                                                    <a href="/books/category/29" class="nav-link">面试</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="sidebar-toc-list">
+                                <div class="site-nav"><p><i class="ivu-icon ivu-icon-ios-flower-outline"></i>
+                                    文章目录
+                                </p></div>
+                                <div id="sidebar-toc" class="list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mask"></div>
+            </div>
+        </div>
+        <div class="timeline-content">
+            <div class="ivu-row">
+                <div class="ivu-col ivu-col-span-xs-24 ivu-col-span-sm-24 ivu-col-span-md-24 ivu-col-span-lg-17">
+                    <div class="layout-left">
+                        <div class="timeline-header">
+                            <div class="section-title">
+                                <div class="title"><span class="square"></span> <span class="main-title">存档时光</span>
+                                    <span class="vertical-line"></span> <span class="sub-title">Articles</span> <span
+                                            class="view-more"><!----></span></div>
+                                <div class="menu"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="article-list-year-title style-date-year"><span class="date"><i
+                                    class="ivu-icon ivu-icon-calendar"></i></span> <span class="main-title">2019</span>
+                                <span class="vertical-line"></span> <span class="sub-title">共 <a href="">21</a> 篇</span>
+                            </div> <!----><!---->
+                            <div>
+                                <div class="article-list-year-title style-date-month"><span class="date"><i
+                                        class="ivu-icon ivu-icon-clock"></i></span> <span class="main-title">3月</span>
+                                    <span class="vertical-line"></span> <span class="sub-title">共 <a
+                                            href="">11</a> 篇</span></div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-31</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/2" class="title">
+                                            Java虚拟机02——对象存活判断和4种引用
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">垃圾收集器在对堆进行回收前，第一件事情就是要确定这些对象之中哪些还“存活”着，哪些已经“死去”</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-30</span> <!----></div>
+                                        <div class="base-info"><a href="/article/12" class="title">
+                                            你还在看《深入理解Java虚拟机》的运行时数据模型吗？
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">JDK8已经更新了运行时数据区，你知道吗？</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-22</span> <!----></div>
+                                        <div class="base-info"><a href="/article/11" class="title">
+                                            别再用懒汉模式了——从JVM的角度看单例模式
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">从JVM的角度看单例模式，总结得出懒汉模式的缺点</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-19</span> <!----></div>
+                                        <div class="base-info"><a href="/article/10" class="title">
+                                            天天用Spring IOC，那它有什么好处呢？
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">要了解控制反转( Inversion of Control ),
+                                                我觉得有必要先了解软件设计的一个重要思想：依赖倒置原则（Dependency Inversion Principle ）...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-12</span> <!----></div>
+                                        <div class="base-info"><a href="/article/8" class="title">
+                                            leetCode刷题笔记
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">leetCode刷题的笔记，用来提升自己的算法能力</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-11</span> <!----></div>
+                                        <div class="base-info"><a href="/article/7" class="title">
+                                            如何撰写精彩的技术博客文章
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">--- 从创意到精致结果的五个步骤</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-9</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/1" class="title">
+                                            Java虚拟机01——Java内存数据区域和内存溢出异常
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">
+                                                Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-9</span> <!----></div>
+                                        <div class="base-info"><a href="/article/1" class="title">
+                                            关于本站和博主
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">关于本站和博主</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-9</span> <!----></div>
+                                        <div class="base-info"><a href="/article/5" class="title">
+                                            性能分析利器《Arthas》总结
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">Arthas
+                                                是Alibaba开源的Java诊断工具，为什么要介绍这个工具呢？先来看看你是否都遇到这样的场景：当你线上项目出了问题，但是一打开日志发现，有些地方忘记打了日志，于是你马上补上日志，然后重新上线。当你的项目某个接口执行速度较慢，为了排查问题，于是你四处加上每个方法运行时间。当你发现某个类有冲突，好像在线上运行的结果和你预期的不符合，手动把线上编译出的class文件下载下来然后反编译，看看究竟class内容是什么。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-9</span> <!----></div>
+                                        <div class="base-info"><a href="/article/4" class="title">
+                                            用最简单的话告诉你什么是ElasticSearch
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">Elasticsearch 是一个分布式可扩展的实时搜索和分析引擎,一个建立在全文搜索引擎 Apache
+                                                Lucene(TM) 基础上的搜索引擎.当然 Elasticsearch 并不仅仅是 Lucene
+                                                那么简单，下面就介绍ElasticSearch为什么是分布式的，可扩展，高性能，高可用。
+
+
+                                                作者：fallinjava
+                                                链接：https://juejin.im/post/5c790b4b51882545194f84f0
+                                                来源：掘金
+                                                著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-3-9</span> <!----></div>
+                                        <div class="base-info"><a href="/article/3" class="title">
+                                            2019Java最新面试题——Java基础（持续更新）
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">
+                                                网上找的面试题大多比较老旧，很多还是Java6以前的。现在都更新到Java11了，面试题也应该与时俱进。本文搜罗各大厂的Java面试题，力求题目从简到难，分类明确，答案详细！也借此来巩固自己的知识。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="article-list-year-title style-date-month"><span class="date"><i
+                                        class="ivu-icon ivu-icon-clock"></i></span> <span class="main-title">4月</span>
+                                    <span class="vertical-line"></span> <span class="sub-title">共 <a
+                                            href="">9</a> 篇</span></div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-24</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/10" class="title">
+                                            Java多线程01——多线程技能
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">掌握Java多线程技能的基本使用</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-20</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/9" class="title">
+                                            Java虚拟机09——线程安全与锁优化
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">讲解如何保证并发的正确性和如何实现线程的安全性</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-15</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/8" class="title">
+                                            Java虚拟机08——Java内存模型与线程
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">介绍虚拟机如何实现多线程、多线程之间由于共享和竞争数据而导致的一系列问题及解决方案</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-12</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/7" class="title">
+                                            Java虚拟机07——类加载器与双亲委派模型
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">
+                                                类加载器实现了通过一个类的全限定名来获取此类的二进制字节流，这个动作是放到Java虚拟机外部实现的，以便让应用程序自己决定如何去获取所需要的实现类。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-9</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/6" class="title">
+                                            Java虚拟机06——类加载机制
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">
+                                                虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-8</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/5" class="title">
+                                            Java虚拟机05——内存分配与回收策略
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">探讨对象内存分配</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-7</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/4" class="title">
+                                            Java虚拟机04——垃圾收集器
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">主要介绍HotSpot虚拟机的垃圾收集器</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-2</span> <!----></div>
+                                        <div class="base-info"><a href="/bookNote/3" class="title">
+                                            Java虚拟机03——垃圾收集算法
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">介绍几种垃圾收集算法的思想</p></div>
+                                    </div>
+                                </div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-4-1</span> <!----></div>
+                                        <div class="base-info"><a href="/article/13" class="title">
+                                            学习SpringAOP前必知的三种代理模式
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc">只有掌握了这三种代理模式，才能进军AOP哦！</p></div>
+                                    </div>
+                                </div>
+                            </div><!----><!---->
+                            <div>
+                                <div class="article-list-year-title style-date-month"><span class="date"><i
+                                        class="ivu-icon ivu-icon-clock"></i></span> <span class="main-title">7月</span>
+                                    <span class="vertical-line"></span> <span class="sub-title">共 <a
+                                            href="">1</a> 篇</span></div>
+                                <div class="archive-list-cell">
+                                    <div class="info">
+                                        <div class="time-tag border-tag ivu-tag ivu-tag-default ivu-tag-checked"><!---->
+                                            <span class="ivu-tag-text">2019-7-3</span> <!----></div>
+                                        <div class="base-info"><a href="/article/14" class="title">
+                                            笔记
+                                        </a> <a class="see-desc">查看简介&nbsp;&nbsp;<i
+                                                class="ivu-icon ivu-icon-android-arrow-dropup-circle"></i></a>
+                                            <p class="desc"></p></div>
+                                    </div>
+                                </div>
+                            </div><!----><!----><!----><!----><!----></div>
+                    </div>
+                </div>
+                <div class="ivu-col ivu-col-span-xs-0 ivu-col-span-sm-0 ivu-col-span-md-0 ivu-col-span-lg-7">
+                    <div class="layout-right">
+                        <div class="recommend">
+                            <div class="panel"><h4>推荐阅读</h4>
+                                <div class="content">
+                                    <div class="top"><a href="/article/1"><p class="title">关于本站和博主</p>
+                                        <div class="tags">
+                                            <div class="ivu-tag ivu-tag-blue ivu-tag-checked"><!----> <span
+                                                    class="ivu-tag-text ivu-tag-color-white">本站相关</span> <!----></div>
+                                            <div class="ivu-tag ivu-tag-green ivu-tag-checked"><!----> <span
+                                                    class="ivu-tag-text ivu-tag-color-white">关于</span> <!----></div>
+                                        </div>
+                                        <p class="info"><span class="time">2019-3-9</span> <span class="likes"><a><i
+                                                class="ivu-icon ivu-icon-heart"></i> 180 </a></span> <span
+                                                class="comments"><a><i
+                                                class="ivu-icon ivu-icon-compose"></i> 0 </a></span> <span
+                                                class="readings"><a><i
+                                                class="ivu-icon ivu-icon-eye"></i> 1283 </a></span></p>
+                                        <p class="desc">关于本站和博主</p></a></div>
+                                    <ul class="others">
+                                        <li><a href="/bookNote/1"><p class="title">Java虚拟机01——Java内存数据区域和内存溢出异常</p>
+                                            <p class="info"><span class="time">2019-3-9</span> <span class="likes"><a
+                                                    href=""><i class="ivu-icon ivu-icon-heart"></i> 29 </a></span> <span
+                                                    class="comments"><a href=""><i
+                                                    class="ivu-icon ivu-icon-compose"></i> 0 </a></span> <span
+                                                    class="readings"><a href=""><i class="ivu-icon ivu-icon-eye"></i> 135 </a></span>
+                                            </p></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tag-wall" style="margin-top: 15px;">
+                            <div class="panel"><h4>标签墙</h4>
+                                <div class="content">
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">Arthas [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">ElasticSearch [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">Java [15]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">JVM [11]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">leetcode [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">Spring [2]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">关于 [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">写作 [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">多线程 [2]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">本站相关 [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">算法 [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">设计模式 [1]
+      </span> <!----></div>
+                                    <div class="dot-tag ivu-tag ivu-tag-blue ivu-tag-dot ivu-tag-checked"
+                                         style="margin: 0px 5px 5px 0px;"><span class="ivu-tag-dot-inner"></span> <span
+                                            class="ivu-tag-text">面试 [2]
+      </span> <!----></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="common-footer"><p class="copyright"><a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备17117756号</a>
+            <span>|</span>
+            版权所有 © 2018 - 2019
+            <span>|</span> <span>以商业目的使用本网站内容需获许可，非商业目的使用授权遵循CC BY-NC 4.0</span></p></div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/manifest.2ae2e69a05c33dfc65f8.js"></script>
+<script type="text/javascript" src="/static/js/vendor.94420250ff1aedc83bf0.js"></script>
+<script type="text/javascript" src="/static/js/app.c6d3a4dfb004ea98f188.js"></script>
+<div class="ivu-loading-bar" style="height: 2px; display: none;">
+    <div class="ivu-loading-bar-inner" style="width: 0%; height: 2px; background-color: rgb(92, 184, 92);"></div>
+</div>
+</body>
+</html>

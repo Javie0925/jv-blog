@@ -1,0 +1,369 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>JVblog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/css/base.css" rel="stylesheet">
+<link href="/css/index.css" rel="stylesheet">
+<link href="/css/m.css" rel="stylesheet">
+<link href="/css/jv.css" rel="stylesheet">
+  <!--show-time-->
+  <script src="/show-time/js/jquery.min.js" ></script>
+  <script src="/show-time/js/scrollReveal.js"></script>
+  <script src="/show-time/js/time.js" ></script>
+  <!--留言板-->
+  <link rel="stylesheet" type="text/css" href="/js/assets/style.css">
+  <!--scroll to top-->
+  <script src="/show-time/js/scroll-to-top.js"></script>
+  <!--图标-->
+  <link rel="shortcut icon" href="/images/icon/favicon.ico" />
+  <!--固定侧边栏-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/ResizeSensor.min.js"></script>
+  <script type="text/javascript" src="/js/theia-sticky-sidebar.min.js"></script>
+  <script type="text/javascript">
+      jQuery(document).ready(function() {
+          jQuery('.sidebar').theiaStickySidebar({
+              // Settings
+              additionalMarginTop: 30
+          });
+      });
+  </script>
+<!--[if lt IE 9]>
+<script src="/js/modernizr.js"></script>
+<![endif]-->
+
+  <script th:inline="javascript">
+
+      const pageResult = /*[[${pageResult}]]*/ {};
+      const msgList1 = /*[[${msgList1}]]*/ [];
+      const msgList2 = /*[[${msgList2}]]*/ [];
+      const msgList3 = /*[[${msgList3}]]*/ [];
+      const blogpageInfo = /*[[${blogpageInfo}]]*/ {};
+
+  </script>
+</head>
+<body> <!--style="background-image: url(../images/good-bye.jpg);background-size: 100%"-->
+<div id="msgApp">
+  <!--#######################################################################-->
+  <header class="header-navigation" id="header">
+    <nav>
+      <div class="logo"><a href="/index" v-text="blogpageInfo.blogName"></a></div>
+      <h2 id="mnavh"><span class="navicon"></span></h2>
+      <ul id="starlist">
+        <li><a href="/index">网站首页</a></li>
+        <li><a href="/about">关于我</a></li>
+        <li class="menu"><a href="/category">文章分类</a>
+          <ul class="sub">
+            <li v-for="(v,k) in blogpageInfo.categoryList" :key="k"><a :href="'/category/'+v.cid" v-text="v.cname"></a></li>
+          </ul>
+        </li>
+        <li><a href="/search/tag">标签云</a></li>
+        <li><a href="/time">时间轴</a></li>
+        <li><a href="/message">留言</a></li>
+        <li ><a href="javascript:void(0)" @click="toAdminPage">后台管理</a></li>
+        <!--<li><a href="time.html">时间轴</a></li>-->
+      </ul>
+      <div class="searchbox">
+        <div id="search_bar" class="search_bar">
+          <form  id="searchform" action="javascript:void(0)" method="post" name="searchform">
+            <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard" v-model="keyword" @keyup.enter="submit" >
+            <input type="hidden" name="show" value="title" />
+            <input type="hidden" name="tempid" value="1" />
+            <input type="hidden" name="tbname" value="news">
+            <input type="hidden" name="Submit" value="搜索" />
+            <p class="search_ico" @click="submit"> <span></span></p>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!--###########################################################################-->
+
+<article>
+  <h1 class="t_nav">
+    <span v-text="headerMsg.message" ></span>
+    <a href="/index" class="n1">>网站首页</a><a href="javascript:void(0)" class="n2">>留言墙</a>
+  </h1>
+  <div class="wrapper">
+  <div class="picbox">
+  <!--留言内容-->
+  <ul v-if="msgList1">
+    <li v-for="v in msgList1">
+      <a href="javascript:void(0)">
+        <i>
+          <span class="autor">
+            <span class="au01" v-text="v.nickname"></span>
+            <span class="dtime" v-text="jv.formatDate(v.createTime)"></span>
+          </span>
+        </i>
+        <div class="picinfo">
+          <span v-html="v.text">
+          </span>
+        </div>
+      </a>
+    </li>
+  </ul>
+    <ul v-if="msgList2">
+      <li v-for="v in msgList2">
+        <a href="javascript:void(0)">
+          <i>
+          <span class="autor">
+            <span class="au01" v-text="v.nickname"></span>
+            <span class="dtime" v-text="jv.formatDate(v.createTime)"></span>
+          </span>
+          </i>
+          <div class="picinfo">
+            <span v-html="v.text"></span>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <ul v-if="msgList3">
+      <li v-for="v in msgList3">
+        <a href="javascript:void(0)">
+          <i>
+          <span class="autor">
+            <span class="au01" v-text="v.nickname"></span>
+            <span class="dtime" v-text="jv.formatDate(v.createTime)"></span>
+          </span>
+          </i>
+          <div class="picinfo">
+          <span v-html="v.text">
+          </span>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <div class="blank"></div>
+    <!--分页-->
+    <div class="pagelist" style="opacity: 0.9">
+      <a href="javascript:void(0)" title="Total record" v-text="'共'+pageResult.totalPage+'页'"></a>
+      <span v-if="currentPage!=1">
+        <a href="javascript:void(0)" @click="currentPage=1">首页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >首页</a>
+      </span>
+      <span v-if="currentPage!=1">
+        <a href="javascript:void(0)" @click="prePage">上一页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >上一页</a>
+      </span>
+      <span  v-for="i in Math.min(5,pageResult.totalPage)" v-if="i<=pageResult.totalPage" :key="i">
+        <span v-if="index(i)===currentPage">
+          <b v-text="index(i)"></b>
+        </span>
+        <span v-else>
+          <a href="javascript:void(0)" @click="currentPage=index(i)" v-text="index(i)"></a>
+        </span>
+      </span>
+      <span v-if="currentPage!=pageResult.totalPage">
+        <a href="javascript:void(0)" @click="nextPage">下一页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >下一页</a>
+      </span>
+      <span>
+      <span v-if="currentPage!=pageResult.totalPage">
+        <a href="javascript:void(0)" @click="currentPage=pageResult.totalPage">尾页</a>
+      </span>
+      <span v-else>
+        <a href="javascript:void(0)" >尾页</a>
+      </span>
+    </span>
+    </div>
+  </div>
+  <div class="sidebar">
+        <br>
+
+    <div class="paihang" style="opacity: 0.95">
+      <h2 class="hometitle">留言板</h2>
+      <div class="pl-area-post">
+        <div class="pl-post">
+          <div class="pl-textarea">
+            <textarea style="height: 150px" id="pl-520am-f-saytext" placeholder="字数在200以内" class="pl-post-word" v-model="msg.text"></textarea>
+          </div>
+          <div class="pl-tools">
+            <ul>
+              <!--<li style="padding: 0px;"><span title="表情" class="emotion" style="float: left;"><img src="/face/13.gif"></span></li>-->
+              <li style="width: 70%;float: left;" class="username"><input type="text"  size="15" placeholder="您的邮箱（选填）" class="pl-key" v-model="msg.email"></li>
+
+            </ul>
+            <ul>
+              <li style="width: 70%;float: left;" class="username"><input type="text"  size="15" placeholder="您的昵称（选填）" class="pl-key" v-model="msg.nickname"></li>
+            </ul>
+            <ul style="margin-top: 10px;text-align: center">
+              <li style="width: 40%;float: left;padding-left: 0" class="pl-tools-lastchild"><button id="pl-submit-btn-main" class="pl-submit-btn" @click="submitMsg">发 布</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- <ul>
+         <li>
+           您的昵称（选填）:<br>
+           <input name="nickname"  class="msg_input1"  v-model="msg.nickname" style=" color: rgb(153, 153, 153);"  type="text">
+           您的邮箱（选填）:<br>
+           <input name="email" class="msg_input1" v-model="msg.email" style="color: rgb(153, 153, 153);"  type="text">
+           您的评论或留言（必填）:<br>
+           &lt;!&ndash;<span class="emotion" style="float: left;width: 97.6%;margin-left:2px;background-color: #f2f2f2;" title="表情">
+             <img src="/face/13.gif" style="float: left">表情
+           </span>&ndash;&gt;
+           <textarea name="comment" class="msg_input2" v-model="msg.text" placeholder="字数在200以内"></textarea>
+           <div style="color: #8f8f8f;">
+             <span style="float: left;display:inline-block;">您已经输入<span v-text="msg.text.length"></span>个字，</span>
+             还可以输入<span v-text="200-msg.text.length"></span>个字
+           </div>
+           <div style="text-align: center;margin-top: 10px">
+             <input name="Submit" class="msg_submit" value="提交" type="submit" @click="submitMsg" style="">
+           </div>
+           &lt;!&ndash;<input name="Submit" class="input_submit" value="" type="submit">&ndash;&gt;
+         </li>
+       </ul>-->
+    </div>
+  </div>
+  </div>
+</article>
+  <footer>
+    <div class="box">
+      <div class="wxbox">
+        <ul>
+          <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110009159146BeUjcv.png"><span>本站地址</span></li>
+          <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110010281916RyaKXz.png"><span>GitHub地址</span></li>
+        </ul>
+      </div>
+      <div class="endnav">
+        <p><b>站点声明：</b></p>
+        <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925" target="_blank">https://github.com/Javie0925</a>，欢迎☆star☆。</p>
+        <p>2、所有文章均可转载、摘编、复制或建立镜像。</a></p>
+        <p>Copyright © <a href="http://jvblog.nat100.top" target="_blank">jvblog.nat100.top</a> All Rights Reserved. </p><!--备案号：<a target="_blank" style="display: none">闽xxx备xxxxxxxx</a>-->
+      </div>
+    </div>
+  </footer>
+</div>
+<!--悬浮组件-->
+<a title="回到顶部" class="m-back" href="#" id="g_backtop" hidefocus="true" style="">
+  <img src="/images/back-to-top.png" >
+</a>
+<a title="回到首页" class="m-back-index" href="/index" id="g_backindex" hidefocus="true" style="">
+  <img src="/images/back-to-index2.png">
+</a>
+<!--vue-->
+<script src="/js/vue/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/common.js"></script>
+<!--vue-->
+<script type="text/javascript">
+    var msgVm = new Vue({
+        el: "#msgApp",
+        data: {
+            jv,
+            msg:{
+              nickname:"",
+              email:"",
+              text:"",
+            },
+            pageResult,
+            msgList1,
+            msgList2,
+            msgList3,
+            currentPage:1,
+            blogpageInfo,
+            headerMsg:"",
+            keyword:"",
+        },
+        created(){
+            this.currentPage=this.pageResult.currentPage;
+            var headerMsg = JSON.parse(blogpageInfo.headerMsg);
+            this.headerMsg = headerMsg;
+        },
+        methods: {
+            index(i){
+                if(this.pageResult.totalPage <= 5){
+                    // 如果当前页小于等于3或者总页数小于等于5
+                    return i;
+                } else if(this.pageResult.totalPage > 5 && this.currentPage<=3){
+                    return i;
+                } else if(this.pageResult.totalPage > 5 && this.currentPage == this.pageResult.totalPage){
+                    return this.currentPage-5+i;
+                } else if(this.pageResult.totalPage > 5 && this.currentPage == this.pageResult.totalPage-1){
+                    return this.currentPage-4+i;
+                } else if(this.pageResult.totalPage > 5 && this.currentPage == this.pageResult.totalPage-2){
+                    return this.currentPage-3+i;
+                } else {
+                    // 如果当前页大于3
+                    return this.currentPage - 3 + i;
+                }
+            },
+            prePage(){
+                if(this.currentPage > 1){
+                    this.currentPage--
+                }
+            },
+            nextPage(){
+                if(this.currentPage < this.pageResult.totalPage){
+                    this.currentPage++
+                }
+            },
+            submitMsg(){
+                if(this.msg.text){
+                    if (this.msg.text.length>=200){
+                        window.alert("抱歉，字数超出范围，提交失败");
+                        return;
+                    };
+                    axios.post("/message",{
+                        nickname:this.msg.nickname,
+                        email:this.msg.email,
+                        text:this.msg.text,
+                    }).then(resp => {
+                        window.alert("留言成功");
+                        location.reload(true);
+                    }).catch(error => {
+                        window.alert("抱歉，留言失败。");
+                    })
+                }
+            },
+            submit(){
+                if(this.keyword||!"请输入关键字"===this.keyword){
+                    jv.http.get("/search/check/"+this.keyword).then(resp => {
+                        window.location.href = "/search/"+this.keyword;
+                    }).catch(error => {
+                        //window.alert(error);
+                        window.alert("抱歉，博客未找到。");
+                        this.keyword="";
+                    })
+                }
+            },
+            toAdminPage(){
+                if (this.blogpageInfo.adminUrl){
+                    window.open(this.blogpageInfo.adminUrl);
+                }
+            },
+        },
+        watch: {
+            currentPage:{
+                deep:true,
+                handler(val,old){
+                    jv.http.get("/message/"+this.currentPage).then(resp => {
+                        this.pageResult = resp.data.pageResult;
+                        this.msgList1 = resp.data.msgList1;
+                        this.msgList2 = resp.data.msgList2;
+                        this.msgList3 = resp.data.msgList3;
+                    }).catch(error => {
+                        window.alert("页面信息错误");
+                    })
+                }
+            }
+        }
+
+    })
+</script>
+<!--<script src="/js/nav.js"></script>-->
+<!--特效背景-->
+<script src="/js/skin/canvas-nest.min.js" count="200" zindex="-2" opacity="0.8" color="47,135,193" type="text/javascript"></script>
+</body>
+</html>

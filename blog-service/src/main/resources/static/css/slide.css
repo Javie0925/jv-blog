@@ -1,0 +1,85 @@
+.slide_div {margin-left: 3px;float: left; width: 70%; overflow: hidden;}
+#slide_container {
+    position: relative;
+    width: 830px;
+    height: 300px;
+    /*border: 3px solid #333;*/
+    overflow: hidden;
+    margin-left: 5px;
+    margin-right: 4px;
+    float: left;
+    border-radius: 5px;
+}
+
+#slide_list {
+    position: absolute;
+    z-index: 1;
+    width: 5810px;  /*(830*7)*/
+    height: 300px;
+    overflow: hidden;
+    float: left;
+}
+
+#slide_list a img {
+    float: left;
+    width: 830px;
+    height: 300px;
+    overflow: hidden;
+    float: left;
+}
+
+#slide_buttons {
+    position: absolute;
+    left: 375px;
+    bottom: 20px;
+    z-index: 2;
+    height: 10px;
+    width: 100px;
+}
+
+#slide_buttons span {
+    float: left;
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #333;
+    cursor: pointer;
+}
+
+#slide_buttons .on {
+    background: #ffffff;
+}
+
+.arrow {
+    position: absolute;
+    top: 130px;
+    z-index: 2;
+    display: none;
+    width: auto;
+    height: auto;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 39px;
+    text-align: center;
+    opacity: 0.8;
+    color: #333333;
+    /*background-color: RGBA(0, 0, 0, .3);*/
+    cursor: pointer;
+}
+
+.arrow:hover {
+    transform: scale(2.5);color: #333333;/*background-color: #ebebeb;box-shadow: 10px 10px 10px #000000;*/
+}
+
+#slide_container:hover .arrow {
+    display: block;
+}
+
+#prev {
+    left: 3%;
+}
+
+#next {
+    right: 3%;
+}

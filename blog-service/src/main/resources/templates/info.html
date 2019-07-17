@@ -1,0 +1,440 @@
+<!doctype html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JVblog</title>
+    <meta name="keywords" content="个人博客,JV个人博客" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <link href="/css/jv.css" rel="stylesheet">
+    <!--google search-->
+    <link href="/css/gsearch.css" rel="stylesheet" />
+    <!--show-time-->
+    <script src="/show-time/js/jquery.min.js" ></script>
+    <script src="/show-time/js/scrollReveal.js"></script>
+    <script src="/show-time/js/time.js" ></script>
+    <!--scroll to top-->
+    <script src="/show-time/js/scroll-to-top.js"></script>
+    <!--图标-->
+    <link rel="shortcut icon" href="/images/icon/favicon.ico" />
+    <script src="/js/jquery-2.1.1.min.js" ></script>
+    <!--固定侧边栏-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/ResizeSensor.min.js"></script>
+    <script type="text/javascript" src="/js/theia-sticky-sidebar.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('.sidebar').theiaStickySidebar({
+                // Settings
+                additionalMarginTop: 30,
+            });
+        });
+    </script>
+    <!--评论-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/show.css">-->
+    <!--<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="/js/assets/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/modernizr.js"></script>
+    <![endif]-->
+    <script th:inline="javascript">
+
+        const blogVo = /*[[${blogVo}]]*/ {};
+        const blogpageInfo = /*[[${blogpageInfo}]]*/ {};
+
+    </script>
+
+    <!--##############################表情包############################-->
+
+    <script type="text/javascript" src="/js/jquery.qqFace.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.emotion').qqFace({
+                assign:'pl-520am-f-saytext', //给那个控件赋值
+                path:'/face/'	//表情存放的路径
+            });
+            /*$(".sub_btn").click(function(){
+                var str = $("#saytext").val();
+                $("#show").html(replace_em(str));
+            });*/
+        });
+        //替换表情
+        function replace_em(str){
+            str = str.replaceAll(/\</g,'&lt;');
+            str = str.replaceAll(/\>/g,'&gt;');
+            str = str.replaceAll(/\n/g,'<br/>');
+            str = str.replaceAll(/\[em_([0-9]*)\]/g,'<img src="face/$1.gif" border="0" />');
+            return str;
+        }
+    </script>
+</head>
+<body>
+<div id="blogApp">
+    <!--#######################################################################-->
+    <header class="header-navigation" id="header">
+        <nav>
+            <div class="logo"><a href="/index" v-text="blogpageInfo.blogName"></a></div>
+            <h2 id="mnavh"><span class="navicon"></span></h2>
+            <ul id="starlist">
+                <li><a href="/index">网站首页</a></li>
+                <li><a href="/about">关于我</a></li>
+                <li class="menu"><a href="/category">文章分类</a>
+                    <ul class="sub">
+                        <li v-for="(v,k) in blogpageInfo.categoryList" :key="k"><a :href="'/category/'+v.cid" v-text="v.cname"></a></li>
+                    </ul>
+                </li>
+                <li><a href="/search/tag">标签云</a></li>
+                <li><a href="/time">时间轴</a></li>
+                <li><a href="/message">留言</a></li>
+                <li ><a href="javascript:void(0)" @click="toAdminPage">后台管理</a></li>
+                <!--<li><a href="time.html">时间轴</a></li>-->
+            </ul>
+            <div class="searchbox">
+                <div id="search_bar" class="search_bar">
+                    <form  id="searchform" action="[!--news.url--]e/search/index.php" method="post" name="searchform">
+                        <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard" v-model="keyword" @keyup.enter="submit" >
+                        <input type="hidden" name="show" value="title" />
+                        <input type="hidden" name="tempid" value="1" />
+                        <input type="hidden" name="tbname" value="news">
+                        <input type="hidden" name="Submit" value="搜索" />
+                        <p class="search_ico" @click="submit"> <span></span></p>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--###########################################################################-->
+
+    <article>
+        <h1 class="t_nav">
+            <span v-text="headerMsg.info"></span>
+            <a href="/index" class="n1">>网站首页</a>
+            <a href="javascrip:void(0)" class="n2">>博文页</a>
+        </h1>
+        <div class="wrapper">
+            <div class="info-lbox">
+                <div class="infos">
+                    <div class="newsview">
+
+                        <h1 class="news_title" >
+                            <span style="margin-right: 8px;font-weight: normal;color: #ca0c16;border: 1px solid #f4ced0;;display: inline-block;margin-top: 4px;width: 26px;height: 26px;line-height: 26px;text-align: center;font-size: 12px; border-radius: 50%;" v-if="blogVo.blogDetail.original">原</span>
+                            <span style="margin-right: 8px;font-weight: normal;color: #ca0c16;border: 1px solid #f4ced0;;display: inline-block;margin-top: 4px;width: 26px;height: 26px;line-height: 26px;text-align: center;font-size: 12px; border-radius: 50%;" v-else>转</span>
+                            <span v-text="blogVo.blogDetail.title"></span>
+                        </h1>
+                        <div class="news_author"><!--<span class="au01"><a href="javascript:void(0)" v-text="blogVo.blogDetail.author"></a></span>--><span class="au02" v-text="jv.formatDate(blogVo.blogDetail.createTime,'yyyy年MM月dd日')">2018-04-27</span><span class="au03">阅读数<b v-text="blogVo.blogDetail.watch"></b></span></div>
+                        <div class="tags">
+                            <a :href="'/search/tag/'+blogVo.blogDetail.tagId" ><span v-text="blogVo.blogDetail.tag"></span></a> &nbsp;
+                            <!--<a :href="'/search/category/'+blogVo.category.categoryId" >分类：{{blogVo.category.categoryName}}</a>-->
+                        </div>
+                        <div class="news_about"><strong>简介</strong><span v-text="blogVo.blogDetail.summary"></span></div>
+                        <div class="news_infos" v-html="blogVo.blogDetail.content"></div>
+                    </div>
+                    <div class="share" v-if="blogVo.blogDetail.originalUrl">
+                        <!--<img src="https://www.yangqq.com/skin/jxhx/images/wxgzh.jpg">-->
+                        <!--<p>扫描关注青于蓝微信公众号，第一时间获取网站模板更新动态</p>-->
+                        <p>原文链接：<a :href="blogVo.blogDetail.originalUrl" target="_blank" v-text="blogVo.blogDetail.originalUrl" ></a></p>
+                    </div>
+                    <div class="share">
+                        <!--<img src="https://www.yangqq.com/skin/jxhx/images/wxgzh.jpg">-->
+                        <!--<p>扫描关注青于蓝微信公众号，第一时间获取网站模板更新动态</p>-->
+                        <p>本文地址：<a href="javascript:void(0)" v-text="'http://jvblog.nat100.top/blog/'+blogVo.blogDetail.blogId" ></a></p>
+                    </div>
+                    <p>
+                        <span class="diggit" @click="addLike"><a href="javascript:void(0)" v-text="like"> 很赞哦！ </a>(<b id="diggnum" v-text="blogVo.blogDetail.likeNum">59</b>)</span>
+                    </p>
+                    <div class="nextinfo">
+                        <p>上一篇：
+                            <span v-if="blogVo.pre">
+                            <a :href="'/blog/'+blogVo.pre.blogId" v-text="blogVo.pre.title"></a>
+                        </span>
+                            <span v-else>
+                            <a href="/index">返回列表</a>
+                        </span>
+                        </p>
+                        <p>下一篇：
+                            <span v-if="blogVo.next">
+                            <a :href="'/blog/'+blogVo.next.blogId" v-text="blogVo.next.title"></a>
+                        </span>
+                            <span v-else>
+                            <a href="/index">返回列表</a>
+                        </span>
+                        </p>
+                    </div>
+
+                </div>
+                <div class="whitebg">
+                    <div class="otherlink">
+                        <h2 class="hometitle">相关文章</h2>
+                        <ul v-for="v in blogVo.recomends">
+                            <li><a :href="'/blog/'+v.blogId" title="" v-text="v.title"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!------------------------------------>
+                <div class="whitebg gbook">
+                    <h2 class="hometitle">文章评论</h2>
+                    <ul>
+                        <!-- 评论 开始 -->
+                        <div class="pinglun">
+                            <div class="pl-520am" data-id="993" data-classid="3" data-showhot="0">
+                                <!--       <div class="pl-area-userpic">
+                                        <img id="pl-userpic" src="https://www.yangqq.com/e/extend/lgyPl/assets/nouserpic.gif">      </div> -->
+                                <div class="pl-area-post">
+                                    <div class="pl-post">
+                                        <div class="pl-textarea"><textarea class="pl-post-word" id="pl-520am-f-saytext" placeholder="写下你想说的，开始我们的对话" v-model="newComment.text" @focus="refreshCommentText"></textarea>
+                                        </div>
+                                        <div class="pl-tools">
+                                            <ul>
+                                                <li style="padding: 0px"><span class="emotion" style="float: left" title="表情"><img src="/face/13.gif"></span></li>
+                                                <li class="pl-tools-lastchild"><button class="pl-submit-btn" id="pl-submit-btn-main" @click="createComment">发 布</button></li>
+                                                <li class="username"><input type="text" id="pl-username" class="pl-key" size="15" placeholder="您的昵称" v-model="newComment.name" @keyup.enter="createComment"></li>
+                                            </ul>
+                                        </div>
+                                        <!--<div class="pl-face-box" id="pl-face-box" style="display: none;">
+                                            <div class="pl-face-box-before"><a class="pl-icon icon-face"></a></div>
+                                            <li onclick="lgyPl.addplface('[/微笑]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/wx.gif"></a></li><li onclick="lgyPl.addplface('[/晕]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/y.gif"></a></li><li onclick="lgyPl.addplface('[/心花怒放]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/xhnf.gif"></a></li><li onclick="lgyPl.addplface('[/鼓掌]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/gz.gif"></a></li><li onclick="lgyPl.addplface('[/龇牙]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/cy.gif"></a></li><li onclick="lgyPl.addplface('[/害羞]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/hx.gif"></a></li><li onclick="lgyPl.addplface('[/偷笑]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/tx.gif"></a></li><li onclick="lgyPl.addplface('[/难过]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/ng.gif"></a></li><li onclick="lgyPl.addplface('[/可爱]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/ka.gif"></a></li><li onclick="lgyPl.addplface('[/泪]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/lei.gif"></a></li><li onclick="lgyPl.addplface('[/示爱]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/sa.gif"></a></li><li onclick="lgyPl.addplface('[/酷]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.yangqq.com/e/data/face/cool.gif"></a></li>          </div>
+                                        <div class="pl-img-box" id="pl-img-box" style="display: none;">
+                                            <div class="pl-img-box-before"><a class="pl-icon icon-img"></a></div>
+                                            <div class="pl-img-file"><input placeholder="http://" type="text"> <button>添加</button></div>
+                                        </div>-->
+                                    </div>
+                                </div>
+
+                                <div class="pl-clr"></div>
+                                <div class="pl-showinfo">请先说点什么</div>
+                                <div class="pl-clr"></div>
+                                <div class="pl-show-hot-list">
+                                    <div class="pl-title">热门评论</div>
+                                    <div class="pl-show-list" id="pl-show-hot"></div>
+                                </div>
+                                <div class="pl-clr" id="pl-start"></div>
+                                <div class="pl-header"><em id="pl-joinnum" v-text="blogVo.blogDetail.watch"></em>人参与，<em id="pl-totalnum" v-text="blogVo.blogDetail.commentNum">30</em>条评论<span class="pl-userinfo" id="pl-userinfo"></span></div>
+                                <!--评论列表-->
+                                <div class="pl-show-list" id="pl-show-all" v-for="(v,k) in blogVo.commentList" :key="k">
+                                    <div class="pl-area pl-show-box" id="pl-show-box-50">
+                                        <div class="pl-area-userpic">
+                                            <img id="pl-userpic" src="https://www.yangqq.com/e/extend/lgyPl/assets/userpic/user_04.jpg">
+                                        </div>
+                                        <div class="pl-area-post">
+                                            <div class="pl-show-title"><span v-text="v.name">去看你博客</span> <span class="pl-show-time pl-fr" v-text="jv.formatDate(v.createTime,'yyyy年MM月dd hh:mm')"></span></div>
+                                            <div class="pl-show-saytext" v-html="v.text"></div>
+                                            <!--<div class="pl-show-tools"><a id="pl-err-info-50"></a> <a href="javascript:;" onclick="lgyPl.doForPl(50,1,this)"><i class="iconfont icon-good"></i><span id="pl-1-50">1</span></a> &lt;!&ndash; <a href="javascript:;" onclick="lgyPl.doForPl(50,0,this)"><i class="pl-icon icon-bad"></i><span id="pl-0-50"></span></a> &ndash;&gt; <a class="pl-reply" onclick="lgyPl.showReply(50,'去看你博客')" href="javascript:;"><i class="iconfont"></i></a></div>-->
+                                            <!--<div class="pl-show-replay"></div>-->
+                                        </div>
+                                        <div class="pl-clr"></div>
+                                    </div>
+                                </div>
+                                <!--<div id="pl-pagination"></div>-->
+                                <!--<button onclick="lgyPl.getNewsComment(0,this);" class="showAllComment buttonGray" style="display: inline-block;" disabled="disabled">已加载完毕</button></div>-->
+                                <!--<script type="text/javascript" src="https://www.yangqq.com/e/extend/lgyPl/api.js"></script>-->
+                            </div>
+                        </div>
+                        <!-- 评论 结束 -->
+                    </ul>
+                </div>
+                <!------------------------------------>
+                <!--<div class="news_pl">
+                    <h2>文章评论</h2>
+                    &lt;!&ndash; 文章评论 &ndash;&gt;
+                    <div class="mainContainner">
+                        <div class="commentBox">
+                            <div class="Ctop">
+                                <span class="emotion" style="float: left;margin-right: 20px" title="表情"><img src="/face/13.gif"></span>
+                                <label class="Ctip">已有<span class="Ccount" id="Ccount" v-text="blogVo.blogDetail.commentNum"></span>条评论</label>
+                            </div>
+                            <div class="Cinput">
+                                <textarea placeholder="请输入评论内容(200字以内)" class="Ccont" id="Ccont" v-model="newComment.text" @focus="refreshCommentText"></textarea>
+                            </div>
+                            <span style="color: #8f8f8f;float: right;">您已经输入：<span v-text="newComment.text.length"></span>个字，还可以输入<span v-text="200-newComment.text.length"></span>个字</span>
+                            <div class="Csunbmit">
+                                &lt;!&ndash;<label  class="Cnick" style="margin-top: 10px"><strong>您的昵称：</strong></label>&ndash;&gt;
+                                <input placeholder="请输入昵称"  name="keyword" class="comment_input_text" v-model="newComment.name" @keyup.enter="createComment" style="color: rgb(153, 153, 153);"/>
+                                <input  name="Submit" class="comment_input_submit" value="评论" type="submit" @click="createComment">
+
+                                &lt;!&ndash;<input class="Cusername" placeholder="你的昵称" id="Cusername"  v-model="newComment.name"></input>&ndash;&gt;
+                                &lt;!&ndash;<button class="submitBtn" @click="createComment">发布评论</button>&ndash;&gt;
+
+                            </div>
+                        </div>
+                        <div v-if="blogVo.commentList.size!=0">
+                            <div class="CommentList" v-for="(v,k) in blogVo.commentList" :key="k">
+                                <ul class="listul" >
+                                    <div class="news_author">
+                                        <span class="au01"><a href="javascript:void(0)" v-text="v.name"></a></span>
+                                        <span class="au02" v-text="jv.formatDate(v.createTime,'yyyy-MM-dd / hh:mm:ss')"></span>
+                                        <span v-text="'#'+(k+1)" style="float: right"></span>
+                                    </div>
+                                    <li class="commentText" v-html="v.text">评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="fydiv">
+                            <ul class="fenye">
+                            </ul>
+                        </div>
+                    </div>
+                    &lt;!&ndash; 结束 &ndash;&gt;
+                </div>-->
+
+
+            </div>
+            <div class="sidebar">
+                <div class="theiaStickySidebar">
+                    <!--搜索-->
+                    <div class="search">
+                        <div class="RNNXgb" >
+                            <div class="SDkEP">
+                                <div class="a4bIc" >
+                                    <div class="vdLsw gsfi"></div>
+                                    <input class="gLFyf gsfi" maxlength="2048" placeholder="请输入关键字" v-model="keyword" type="text" @keyup.enter="submit">
+                                </div>
+                            </div>
+                            <button class="Tg7LZd" type="button" @click="submit">
+                                <div class="rINcab">
+                                    <span class="z1asCe MZy1Rb">
+                                      <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                      </svg>
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cloud">
+                        <h2 class="hometitle">标签云</h2>
+                        <ul >
+                            <a :href="'/search/tag/'+v.tagId" v-text="v.tagName+'('+v.blogCount+')'" v-for="v in blogVo.tagList"></a>
+                        </ul>
+                    </div>
+                    <div class="paihang">
+                        <h2 class="hometitle">点击排行</h2>
+                        <ul>
+                            <li v-for="(v,k) in blogVo.hotBlogs" :key="k"><i></i><a :href="'/blog/'+v.blogId" v-text="v.title" :title="v.title"></a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="weixin">
+                      <h2 class="hometitle">官方微信</h2>
+                      <ul>
+                        <img src="/images/wx.jpg">
+                      </ul>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </article>
+    <div class="blank"></div>
+    <footer>
+        <div class="box">
+            <div class="wxbox">
+                <ul>
+                    <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110009159146BeUjcv.png"><span>本站地址</span></li>
+                    <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110010281916RyaKXz.png"><span>GitHub地址</span></li>
+                </ul>
+            </div>
+            <div class="endnav">
+                <p><b>站点声明：</b></p>
+                <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925" target="_blank">https://github.com/Javie0925</a>，欢迎☆star☆。</p>
+                <p>2、所有文章均可转载、摘编、复制或建立镜像。</a></p>
+                <p>Copyright © <a href="http://jvblog.nat100.top" target="_blank">jvblog.nat100.top</a> All Rights Reserved. </p><!--备案号：<a target="_blank" style="display: none">闽xxx备xxxxxxxx</a>-->
+            </div>
+        </div>
+    </footer>
+</div>
+<!--悬浮组件-->
+<a title="回到顶部" class="m-back" href="#" id="g_backtop" hidefocus="true" style="">
+    <img src="/images/back-to-top.png" >
+</a>
+<a title="回到首页" class="m-back-index" href="/index" id="g_backindex" hidefocus="true" style="">
+    <img src="/images/back-to-index2.png" >
+</a>
+<!--vue-->
+<script src="/js/vue/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/common.js"></script>
+<!--vue-->
+<script type="text/javascript">
+    var blogVm = new Vue({
+        el: "#blogApp",
+        data: {
+            jv,
+            window,
+            keyword:"",
+            blogVo,
+            blogpageInfo,
+            headerMsg:"",
+            newComment:{
+                name:"",
+                text:"",
+                blogId:0,
+            },
+            like:"很赞哦！",
+        },
+        created(){
+            var headerMsg = JSON.parse(blogpageInfo.headerMsg);
+            this.headerMsg = headerMsg;
+            this.newComment.blogId = this.blogVo.blogDetail.blogId;
+        },
+        methods: {
+            // 点赞
+            addLike(){
+                 if (this.like=="感谢您的支持！"){
+                     return;
+                 }
+                axios.post("/blog/like/"+this.blogVo.blogDetail.blogId)
+                    .then(resp=>{
+                        this.like="感谢您的支持！";
+                        this.blogVo.blogDetail.likeNum = this.blogVo.blogDetail.likeNum+1;
+                    }).catch(error=>{
+                })
+            },
+            // 搜索
+            submit(){
+                if(this.keyword||!"请输入关键字"===this.keyword){
+                    jv.http.get("/search/check/"+this.keyword).then(resp => {
+                        window.location.href = "/search/"+this.keyword;
+                    }).catch(error => {
+                        window.alert("抱歉，博客找不到。");
+                        this.keyword=""
+                    })
+                }
+            },
+            // 返回主页
+            toAdminPage(){
+                if (this.blogpageInfo.adminUrl){
+                    window.open(this.blogpageInfo.adminUrl);
+                }
+            },
+            // 增加评论
+            createComment(){
+                this.newComment.text = document.getElementById("pl-520am-f-saytext").value;
+                if(!this.newComment.text){
+                    return;
+                }
+                if(this.newComment.text.length>200){
+                    window.alert("字数不能超过200！");
+                    return;
+                }
+                axios.post("/comment",this.newComment)
+                    .then(resp=>{
+                        window.alert("评论成功！");
+                        window.location.reload(true);
+                    }).catch(error=>{
+                    window.alert("抱歉，提交失败！")
+                })
+            },
+            refreshCommentText(){
+                this.newComment.text=document.getElementById("pl-520am-f-saytext").value;
+            }
+        },
+
+    })
+
+</script>
+<!--特效背景-->
+<script src="/js/skin/canvas-nest.min.js" count="200" zindex="-2" opacity="0.8" color="47,135,193" type="text/javascript"></script>
+</body>
+</html>

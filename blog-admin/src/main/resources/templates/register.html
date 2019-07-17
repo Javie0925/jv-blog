@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JVblog博客管理系统</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+<link rel="apple-touch-icon-precomposed" href="/images/icon/icon.png">
+<link rel="shortcut icon" href="/images/icon/favicon.ico">
+<script src="/js/jquery-2.1.4.min.js"></script>
+<!--[if gte IE 9]>
+  <script src="/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+  <script src="/js/html5shiv.min.js" type="text/javascript"></script>
+  <script src="/js/respond.min.js" type="text/javascript"></script>
+  <script src="/js/selectivizr-min.js" type="text/javascript"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+  <script>window.location.href='upgrade-browser.html';</script>
+<![endif]-->
+</head>
+
+<body class="user-select">
+<div id="registerApp">
+<div class="container">
+  <div class="siteIcon"><img src="/images/icon/icon.png" alt="" data-toggle="tooltip" data-placement="top" title="欢迎使用JVbolg管理系统" draggable="false" /></div>
+  <form action="javascript:void(0)" method="post" autocomplete="off" class="form-signin">
+    <h2 class="form-signin-heading">申请管理员账号</h2>
+    <label for="userName" class="sr-only">用户名</label>
+    <input type="text" id="userName" name="username" class="form-control" placeholder="请输入用户名" required autofocus autocomplete="off" maxlength="20" v-model="user.username">
+    <label for="userPwd" class="sr-only">密码</label>
+    <input type="password" id="userPwd" name="userpwd" class="form-control" placeholder="请输入密码" required autocomplete="off" maxlength="20" v-model="user.password">
+    <label for="userReason" class="sr-only">申请理由</label>
+    <input type="text" id="userReason" name="userpwd" class="form-control" placeholder="请输入申请理由" required   maxlength="1000" v-model="user.userReason">
+    <a ><button class="btn btn-lg btn-primary btn-block" type="submit" id="signinSubmit" @click="submit">申请</button></a>
+  </form>
+  <div class="footer">
+    <p><a href="/login.html" data-toggle="tooltip" data-placement="left" title="不知道自己在哪？">返回登录界面 →</a></p>
+  </div>
+</div>
+</div>
+<!--#############################################vue-start########################################-->
+<script src="/js/vue/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/common.js"></script>
+<!--vue-->
+<script type="text/javascript">
+    var registerVm = new Vue({
+        el: "#registerApp",
+        data: {
+            jv,
+            window,
+            user:{
+                username:"",
+                password:"",
+                userReason:""
+            }
+        },
+        created(){
+        },
+        methods: {
+            // 提交表单
+            submit(){
+                axios.post("/auth/register",this.user).then(resp=>{
+                    window.alert("申请成功，请等待管理员审核，或通知管理员进行审核！邮箱：flying_higher@qq.com");
+                    location.reload(true);
+                }).catch(error=>{
+                    window.alert("抱歉，用户名已经存在，请尝试其他用户名！")
+                })
+            },
+        },
+        watch: {
+        }
+
+    })
+
+</script>
+<!--#############################################vue-end#######################################-->
+<script src="/js/bootstrap.min.js"></script>
+<script>
+$('[data-toggle="tooltip"]').tooltip();
+window.oncontextmenu = function(){
+	//return false;
+};
+$('.siteIcon img').click(function(){
+	window.location.reload();
+});
+$('#signinSubmit').click(function(){
+	if($('#userName').val() === ''){
+		$(this).text('用户名不能为空');
+	}else if($('#userPwd').val() === ''){
+		$(this).text('密码不能为空');
+	}else if ($('#userReason').val() === ''){
+        $(this).text('申请理由不能为空');
+    }else{
+		$(this).text('请稍后...');
+	}
+});
+</script>
+</body>
+</html>

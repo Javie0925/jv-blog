@@ -1,0 +1,190 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>JVblog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/css/base.css" rel="stylesheet">
+<link href="/css/index.css" rel="stylesheet">
+<link href="/css/m.css" rel="stylesheet">
+<link href="/css/jv.css" rel="stylesheet">
+<!--show-time-->
+<script src="/show-time/js/jquery.min.js" ></script>
+<script src="/show-time/js/scrollReveal.js"></script>
+<script src="/show-time/js/time.js" ></script>
+  <!--scroll to top-->
+  <script src="/show-time/js/scroll-to-top.js"></script>
+  <!--图标-->
+  <link rel="shortcut icon" href="/images/icon/favicon.ico" />
+  <!--固定侧边栏-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/ResizeSensor.min.js"></script>
+  <script type="text/javascript" src="/js/theia-sticky-sidebar.min.js"></script>
+  <script type="text/javascript">
+      jQuery(document).ready(function() {
+          jQuery('.rightbox').theiaStickySidebar({
+              // Settings
+              additionalMarginTop: 50
+          });
+      });
+  </script>
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+<script>
+window.onload = function ()
+{
+	var oH2 = document.getElementsByTagName("h2")[0];
+	var oUl = document.getElementsByTagName("ul")[0];
+	oH2.onclick = function ()
+	{
+		var style = oUl.style;
+		style.display = style.display == "block" ? "none" : "block";
+		oH2.className = style.display == "block" ? "open" : ""
+	}
+}
+</script>
+  <script th:inline="javascript">
+
+      const blogpageInfo = /*[[${blogpageInfo}]]*/ {};
+      const aboutMe = /*[[${aboutMe}]]*/ {};
+
+
+  </script>
+</head>
+<body>
+<div id="aboutMeApp">
+<!--#######################################################################-->
+<header class="header-navigation" id="header">
+  <nav>
+    <div class="logo"><a href="/index" v-text="blogpageInfo.blogName"></a></div>
+    <h2 id="mnavh"><span class="navicon"></span></h2>
+    <ul id="starlist">
+      <li><a href="/index">网站首页</a></li>
+      <li><a href="/about">关于我</a></li>
+      <li class="menu"><a href="/category">文章分类</a>
+        <ul class="sub">
+          <li v-for="(v,k) in blogpageInfo.categoryList" :key="k"><a :href="'/category/'+v.cid" v-text="v.cname"></a></li>
+        </ul>
+      </li>
+      <li><a href="/search/tag">标签云</a></li>
+      <li><a href="/time">时间轴</a></li>
+      <li><a href="/message">留言</a></li>
+      <li ><a href="javascript:void(0)" @click="toAdminPage">后台管理</a></li>
+      <!--<li><a href="time.html">时间轴</a></li>-->
+    </ul>
+    <div class="searchbox">
+      <div id="search_bar" class="search_bar">
+        <form  id="searchform" action="javascript:void(0)" method="post" name="searchform">
+          <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard" v-model="keyword" @keyup.enter="submit" >
+          <input type="hidden" name="show" value="title" />
+          <input type="hidden" name="tempid" value="1" />
+          <input type="hidden" name="tbname" value="news">
+          <input type="hidden" name="Submit" value="搜索" />
+          <p class="search_ico" @click="submit"> <span></span></p>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+<!--###########################################################################-->
+<article>
+  <h1 class="t_nav">
+    <span v-text="headerMsg.about"></span>
+    <a href="/index" class="n1">>网站首页</a><a href="Javascript:void(0)" class="n2">>关于我</a></h1>
+  <div class="ab_box">
+    <div class="leftbox">
+      <div class="newsview">
+        <div class="news_infos" v-html="aboutMe.html">
+        </div>
+      </div>
+    </div>
+    <div class="rightbox">
+      <div class="aboutme">
+        <h2 class="hometitle">关于我</h2>
+        <div class="avatar"> <img :src="aboutMe.avator"> </div>
+        <div class="ab_con">
+          <p>网名：  <span v-text="aboutMe.nickname"></span></p>
+          <p >职业：<span v-text="aboutMe.job"></span> </p>
+          <p v-for="(v,k) in contact" ><span v-text="v.name"></span>：<span v-text="v.id"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+  <footer>
+    <div class="box">
+      <div class="wxbox">
+        <ul>
+          <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110009159146BeUjcv.png"><span>本站地址</span></li>
+          <li><img src="https://www.mobanma.com/Uploads/halftone/2019/07/11/201907110010281916RyaKXz.png"><span>GitHub地址</span></li>
+        </ul>
+      </div>
+      <div class="endnav">
+        <p><b>站点声明：</b></p>
+        <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925" target="_blank">https://github.com/Javie0925</a>，欢迎☆star☆。</p>
+        <p>2、所有文章均可转载、摘编、复制或建立镜像。</a></p>
+        <p>Copyright © <a href="http://jvblog.nat100.top" target="_blank">jvblog.nat100.top</a> All Rights Reserved. </p><!--备案号：<a target="_blank" style="display: none">闽xxx备xxxxxxxx</a>-->
+      </div>
+    </div>
+  </footer>
+</div>
+<!--悬浮组件-->
+<a title="回到顶部" class="m-back" href="#" id="g_backtop" hidefocus="true" style="">
+  <img src="/images/back-to-top.png" >
+</a>
+<a title="回到首页" class="m-back-index" href="/index" id="g_backindex" hidefocus="true" style="">
+  <img src="/images/back-to-index2.png" >
+</a>
+<!--vue-->
+<script src="/js/vue/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/common.js"></script>
+<!--vue-->
+<script type="text/javascript">
+    var aboutMeVm = new Vue({
+        el: "#aboutMeApp",
+        data: {
+            jv,
+            aboutMe,
+            keyword:"",
+            blogpageInfo,
+            headerMsg:"",
+            contact:{},
+        },
+        created(){
+            var headerMsg = JSON.parse(blogpageInfo.headerMsg);
+            this.headerMsg = headerMsg;
+            var contact = JSON.parse(aboutMe.contact);
+            this.contact = contact;
+        },
+        methods: {
+            toAdminPage(){
+                if (this.blogpageInfo.adminUrl){
+                    window.open(this.blogpageInfo.adminUrl);
+                }
+            },
+            submit(){
+                if(this.keyword||!"请输入关键字"===this.keyword){
+                    jv.http.get("/search/check/"+this.keyword).then(resp => {
+                        window.location.href = "/search/"+this.keyword;
+                    }).catch(error => {
+                        //window.alert(error);
+                        window.alert("抱歉，博客未找到。");
+                        this.keyword="";
+                    })
+                }
+            },
+        },
+        watch: {
+        }
+
+    })
+
+</script>
+<!--<script src="js/nav.js"></script>-->
+<!--特效背景-->
+<script src="/js/skin/canvas-nest.min.js" count="200" zindex="-2" opacity="0.8" color="47,135,193" type="text/javascript"></script>
+</body>
+</html>

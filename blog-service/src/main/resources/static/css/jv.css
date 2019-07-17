@@ -1,0 +1,11 @@
+@charset "UTF-8";
+/*留言板*/
+.msg_input1 { padding-left: 5px; padding-top: 3px; border: 2px solid #ffffff; width: 96%; height: 30px; line-height: 26px; background-color: #f2f2f2; float: contour; }
+.msg_input2 { padding-left: 5px; padding-top: 3px;border: 2px solid #ffffff; width: 96%; height: 200px; line-height: 26px; background-color: #f2f2f2; float: initial; }
+.msg_submit { margin: 0 auto;background-color: #333; color: #FFF; width: 30%; border: none; cursor: pointer; height: 30px; line-height: 28px;}
+error { overflow: hidden }
+error { width: 1400px; margin: auto }
+.error_img {width: 96%; height: 30px; }
+/*.index-left-side {float: left; width: 70%; overflow: hidden;}*/
+/*.input_text { padding-left: 5px; border: 1px solid #ccc; width: 70%; height: 26px; line-height: 26px; background-color: #f2f2f2; float: left; }*/
+/*.input_submit { background-color: #333; color: #FFF; float: left; width: 20%; border: none; cursor: pointer; height: 28px; line-height: 28px; }*/
