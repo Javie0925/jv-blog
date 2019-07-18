@@ -138,7 +138,11 @@
     <div class="index_topping">
       <h3 class="topping_name">博主置顶</h3>
       <h3 class="topping_title" >
-        <a :href="'/blog/'+blogpageInfo.blogDetail.blogId" v-text="blogpageInfo.blogDetail.title.substring(0,50)"></a>
+        <a :href="'/blog/'+blogpageInfo.blogDetail.blogId" v-text="blogpageInfo.blogDetail.title.substring(0,50)">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        </a>
       </h3>
       <p v-text="blogpageInfo.blogDetail.summary.substring(0,170)+'...'"></p>
     </div>
@@ -157,7 +161,7 @@
     <!--文章列表-->
     <div class="blogs-div" data-scroll-reveal="enter bottom over 1s" v-for="(v,k) in pageResult.itemList" :key="k">
       <h3 class="blogtitle"><a :href="'/blog/'+v.blogId" v-text="v.title"></a></h3>
-      <span class="blogpic"><a href="/" title=""><img :src="v.profileImage" alt=""></a></span>
+      <span class="blogpic" v-if="v.profileImage && v.profileImage.length>10"><a :href="'/blog/'+v.blogId" title="v.title"><img :src="v.profileImage" alt=""></a></span>
       <p class="blogtext" ><a v-text="v.summary"></a></p>
       <div class="bloginfo">
         <ul>
@@ -212,7 +216,7 @@
   <!--侧边栏-->
   <div class="sidebar">
     <!--GitHub-->
-    <a href="https://github.com/Javie0925" target="_blank">
+    <a href="https://github.com/Javie0925/jv-blog" target="_blank">
       <img style="position: absolute; top: 0px; right: 0px; border: 0;z-index: 500" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png">
     </a>
     <!--aboutMe-->
@@ -277,7 +281,7 @@
     </div>
     <div class="endnav">
       <p><b>站点声明：</b></p>
-      <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925" target="_blank">https://github.com/Javie0925</a>，欢迎☆star☆。</p>
+      <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925/jv-blog" target="_blank">https://github.com/Javie0925/jv-blog</a>，欢迎☆star☆。</p>
       <p>2、所有文章均可转载、摘编、复制或建立镜像。</a></p>
       <p>Copyright © <a href="http://jvblog.nat100.top" target="_blank">jvblog.nat100.top</a> All Rights Reserved. </p><!--备案号：<a target="_blank" style="display: none">闽xxx备xxxxxxxx</a>-->
     </div>
@@ -440,96 +444,12 @@
 
 </script>
 <!--<script src="/js/nav.js"></script>-->
-
-<!--轮播图-->
 <script type="text/javascript">
     window.onload = function(){
         //欢迎标签
         window.setTimeout(
             "document.getElementsByClassName(\"index_welcome_head\")[0].style.display='none';"
             ,5000);
-        // 导航栏
-        /*var oH2 = document.getElementsByTagName("h2")[0];
-        var oUl = document.getElementsByTagName("ul")[0];
-        oH2.onclick = function ()
-        {
-            var style = oUl.style;
-            style.display = style.display == "block" ? "none" : "block";
-            oH2.className = style.display == "block" ? "open" : ""
-        }*/
-
-
-
-        // 轮播图
-       /* var list = document.getElementById('slide_list');
-        var prev = document.getElementById('prev');
-        var next = document.getElementById('next');
-        var container = document.getElementById('slide_container');
-        var span = document.getElementsByName('slide_span');
-        var num = 1;
-        var width = 830;
-        var totalWidth = 4150;
-
-        function left_right(offset){
-            var nowLeft = parseInt(list.style.left);  //将600px转化为数字600，方便相加
-            var nextLeft = nowLeft + offset;
-            list.style.left = nextLeft + 'px';
-            if(nextLeft > -width){
-                list.style.left = '-'+totalWidth+'px';
-            }
-            if(nextLeft < -totalWidth){
-                list.style.left = '-'+width+'px';
-            }
-        }
-
-        prev.onclick = function(){
-            left_right(width);
-            num-=1;
-            if(num<1){num=5;}
-            circle();
-        }
-
-        next.onclick = function(){
-            left_right(-width);
-            num+=1;
-            if(num>5){num=1;}
-            circle();
-        }
-
-        function play(){
-            timer = setInterval(function(){
-                next.onclick();
-            },3000);
-        }
-        play();
-
-        function stop(){
-            clearInterval(timer);
-        }
-
-        function circle(){
-            for(var i=1; i<=span.length; i++){
-                if(i==num){
-                    span[num-1].className = 'on';
-                }else{
-                    span[i-1].className = '';
-                }
-            }
-        }
-
-        container.onmouseover = stop;
-        container.onmouseout = play;
-
-        for(var i=0; i<span.length; i++){
-            span[i].onclick = function(){
-                var index = this.getAttribute('index');
-                left_right(-width*(num-index));
-                num = index;
-                circle();
-            }
-        }*/
-
-
         // 点击放大
         var img = document.getElementById('avator_img');
         var motai = document.getElementById('motai');

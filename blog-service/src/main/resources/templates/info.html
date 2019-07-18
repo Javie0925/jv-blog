@@ -94,7 +94,7 @@
             </ul>
             <div class="searchbox">
                 <div id="search_bar" class="search_bar">
-                    <form  id="searchform" action="[!--news.url--]e/search/index.php" method="post" name="searchform">
+                    <form  id="searchform" action="javascript:void(0)" method="post" name="searchform">
                         <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard" v-model="keyword" @keyup.enter="submit" >
                         <input type="hidden" name="show" value="title" />
                         <input type="hidden" name="tempid" value="1" />
@@ -236,51 +236,6 @@
                     </ul>
                 </div>
                 <!------------------------------------>
-                <!--<div class="news_pl">
-                    <h2>文章评论</h2>
-                    &lt;!&ndash; 文章评论 &ndash;&gt;
-                    <div class="mainContainner">
-                        <div class="commentBox">
-                            <div class="Ctop">
-                                <span class="emotion" style="float: left;margin-right: 20px" title="表情"><img src="/face/13.gif"></span>
-                                <label class="Ctip">已有<span class="Ccount" id="Ccount" v-text="blogVo.blogDetail.commentNum"></span>条评论</label>
-                            </div>
-                            <div class="Cinput">
-                                <textarea placeholder="请输入评论内容(200字以内)" class="Ccont" id="Ccont" v-model="newComment.text" @focus="refreshCommentText"></textarea>
-                            </div>
-                            <span style="color: #8f8f8f;float: right;">您已经输入：<span v-text="newComment.text.length"></span>个字，还可以输入<span v-text="200-newComment.text.length"></span>个字</span>
-                            <div class="Csunbmit">
-                                &lt;!&ndash;<label  class="Cnick" style="margin-top: 10px"><strong>您的昵称：</strong></label>&ndash;&gt;
-                                <input placeholder="请输入昵称"  name="keyword" class="comment_input_text" v-model="newComment.name" @keyup.enter="createComment" style="color: rgb(153, 153, 153);"/>
-                                <input  name="Submit" class="comment_input_submit" value="评论" type="submit" @click="createComment">
-
-                                &lt;!&ndash;<input class="Cusername" placeholder="你的昵称" id="Cusername"  v-model="newComment.name"></input>&ndash;&gt;
-                                &lt;!&ndash;<button class="submitBtn" @click="createComment">发布评论</button>&ndash;&gt;
-
-                            </div>
-                        </div>
-                        <div v-if="blogVo.commentList.size!=0">
-                            <div class="CommentList" v-for="(v,k) in blogVo.commentList" :key="k">
-                                <ul class="listul" >
-                                    <div class="news_author">
-                                        <span class="au01"><a href="javascript:void(0)" v-text="v.name"></a></span>
-                                        <span class="au02" v-text="jv.formatDate(v.createTime,'yyyy-MM-dd / hh:mm:ss')"></span>
-                                        <span v-text="'#'+(k+1)" style="float: right"></span>
-                                    </div>
-                                    <li class="commentText" v-html="v.text">评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="fydiv">
-                            <ul class="fenye">
-                            </ul>
-                        </div>
-                    </div>
-                    &lt;!&ndash; 结束 &ndash;&gt;
-                </div>-->
-
-
             </div>
             <div class="sidebar">
                 <div class="theiaStickySidebar">
@@ -337,7 +292,7 @@
             </div>
             <div class="endnav">
                 <p><b>站点声明：</b></p>
-                <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925" target="_blank">https://github.com/Javie0925</a>，欢迎☆star☆。</p>
+                <p>1、本站为个人博客，现已在GitHub开源，地址为<a href="https://github.com/Javie0925/jv-blog" target="_blank">https://github.com/Javie0925/jv-blog</a>，欢迎☆star☆。</p>
                 <p>2、所有文章均可转载、摘编、复制或建立镜像。</a></p>
                 <p>Copyright © <a href="http://jvblog.nat100.top" target="_blank">jvblog.nat100.top</a> All Rights Reserved. </p><!--备案号：<a target="_blank" style="display: none">闽xxx备xxxxxxxx</a>-->
             </div>
