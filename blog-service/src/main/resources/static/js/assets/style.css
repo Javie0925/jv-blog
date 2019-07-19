@@ -110,7 +110,7 @@ i.iconfont.icon-img {
 }*/
 @media (max-width:600px) {
     .pl-show-box { background: #F6F6F6; border: none; padding: 12px; margin: 0 0 12px }
-    .pinglun { margin: 0 10px }
+    .pinglun { margin: 0 -10px }
     .pl-area-userpic { margin: 0 }
     .pl-area-post { border: #eee 1px solid; width: auto; float: none; border-radius: 3px; }
     .pl-show-title { margin: 0 0 10px 56px }

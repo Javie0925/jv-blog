@@ -181,7 +181,11 @@ h3.blogtitle { line-height: 30px; height: 30px; margin: 10px 0; }
 .picbox ul li img { width: 100%; border-radius: 5px}
 .picinfo h3 { border-bottom: #ccc 1px solid; padding: 20px 0; margin: 0 20px }
 .picinfo span { padding: 20px; display: block; color: #666 }
+/*博客内容*/
 .newsview { padding: 0 30px }
+@media screen and (max-width: 479px) {
+    .newsview { padding: 0 10px }
+}
 .intitle { line-height: 40px; height: 40px; font-size: 14px; ; border-bottom: #000 2px solid; }
 .intitle a { font-weight: normal; }
 .news_title { font-size: 24px; font-weight: bold; padding: 20px 0; color: #333; }

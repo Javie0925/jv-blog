@@ -30,7 +30,7 @@ public interface BlogDetailMapper extends BaseMapper<BlogDetail,Long> {
     @Select("SELECT watch FROM tb_blog_detail WHERE blog_id = #{blogId}")
     Integer selectWatchById(Long blogId);
 
-    @Select("SELECT COUNT(*) FROM tb_blog_detail WHERE tag_id=#{tagId}")
+    @Select("SELECT COUNT(*) FROM tb_blog_detail WHERE tag_id=#{tagId} AND visible = true")
     int selectByTagId(Integer tagId);
 
     @Select("SELECT title FROM tb_blog_detail WHERE blog_id = #{blogId}")

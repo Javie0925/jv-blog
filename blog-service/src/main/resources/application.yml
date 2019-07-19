@@ -22,6 +22,5 @@ jv:
     searchPageSize: 10
     hotBlogPageSize: 10
     categoryPageSize: 10
-    defaultCategory: 1
 
 
