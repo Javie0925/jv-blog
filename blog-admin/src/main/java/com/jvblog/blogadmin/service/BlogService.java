@@ -183,7 +183,6 @@ public class BlogService {
         // 判断数据
         if (
                 StringUtils.isEmpty(blogDetail.getTitle())
-                ||StringUtils.isEmpty(blogDetail.getProfileImage())
                 ||StringUtils.isEmpty(blogDetail.getSummary())
         ){
 

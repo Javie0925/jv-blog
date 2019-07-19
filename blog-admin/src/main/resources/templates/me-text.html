@@ -217,7 +217,6 @@
                 this.aboutMe.html=editor.getContent();
                 axios.put("/me/text",this.aboutMe).then(resp=>{
                     window.alert("修改成功！");
-                    location.reload(true);
                 }).catch(error=>{
                     window.alert("修改失败，错误信息:"+error.message)
                 })
@@ -279,9 +278,7 @@
 <script type="text/javascript">
   // 实例化ueditor
   var editor = UE.getEditor('article-content');
-  window.onresize=function(){
-
-}
+  window.onresize=function(){}
 </script>
 </body>
 </html>
