@@ -7,7 +7,7 @@
 .blogs-div .blogpic :hover img { transform: scale(1.1) }
 .blogs-div .blogtitle { margin: 0 0 10px 0; font-size: 20px; overflow: hidden; }
 .blogs-div:hover .blogtitle a { color: #3690cf; }
-.blogs-div .blogtext { font-size: 14px; color: #566573; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; margin-top: 20px }
+.blogs-div .blogtext {font-size: 14px; color: #566573; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; margin-top: 20px }
 .blogs-div .bloginfo { overflow: hidden; margin-top: 30px; display: block }
 .blogs-div .bloginfo li { float: left; font-size: 12px; padding: 0 0 0 20px; margin: 0 15px 0 0; color: #748594; line-height: 1.5; display: inline-block; }
 .blogs-div .bloginfo li a { color: #748594; }

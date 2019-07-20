@@ -121,16 +121,16 @@
       <div class="pagelist">
         <a href="javascript:void(0)" title="Total record" v-text="'共'+pageResult.totalPage+'页'"></a>
         <span v-if="currentPage!=1">
-        <a href="javascript:void(0)" @click="currentPage=1">首页</a>
+        <a href="javascript:void(0)" @click="currentPage=1"><<</a>
       </span>
         <span v-else>
-        <a href="javascript:void(0)" >首页</a>
+        <a href="javascript:void(0)" ><<</a>
       </span>
         <span v-if="currentPage!=1">
-        <a href="javascript:void(0)" @click="prePage">上一页</a>
+        <a href="javascript:void(0)" @click="prePage"><</a>
       </span>
         <span v-else>
-        <a href="javascript:void(0)" >上一页</a>
+        <a href="javascript:void(0)" ><</a>
       </span>
         <span  v-for="i in Math.min(5,pageResult.totalPage)" v-if="i<=pageResult.totalPage" :key="i">
         <span v-if="index(i)===currentPage">
@@ -141,17 +141,17 @@
         </span>
       </span>
         <span v-if="currentPage!=pageResult.totalPage">
-        <a href="javascript:void(0)" @click="nextPage">下一页</a>
+        <a href="javascript:void(0)" @click="nextPage">></a>
       </span>
         <span v-else>
-        <a href="javascript:void(0)" >下一页</a>
+        <a href="javascript:void(0)" >></a>
       </span>
         <span>
       <span v-if="currentPage!=pageResult.totalPage">
-        <a href="javascript:void(0)" @click="currentPage=pageResult.totalPage">尾页</a>
+        <a href="javascript:void(0)" @click="currentPage=pageResult.totalPage">>></a>
       </span>
       <span v-else>
-        <a href="javascript:void(0)" >尾页</a>
+        <a href="javascript:void(0)" >>></a>
       </span>
     </span>
       </div>

@@ -120,3 +120,6 @@ h1.t_nav a { width: 100px; display: block; text-align: center; color: #fff; floa
 .litle { font-size: 20px; margin: 20px 0 0 0; border-bottom: #d6d5d5 1px solid; padding-bottom: 5px; padding: 10px 0 10px 100px; color: #000; background: url(../images/jdbg.png) no-repeat left center; }
 .litle span { float: right; font-size: 14px; color: #666; font-weight: normal }
 .ab_box { padding: 20px; overflow: hidden; background: rgba(255,255,255,1); margin-top: 20px;margin-bottom: 20px }
+@media only screen and (max-width: 480px){
+    .ab_box {padding: 10px;}
+}

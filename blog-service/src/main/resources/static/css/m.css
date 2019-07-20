@@ -79,6 +79,7 @@ nav { width: 100%; position: relative }
  .motai {display: none}
  #slide_container {display: none}
  article { width: 97% }
+ .blogs{width: 62%}
  /*#########################################3*/
  header { width: 96%; margin: auto }
  .slideUp{transform: translateY(0px);}

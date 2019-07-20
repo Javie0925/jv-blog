@@ -31,8 +31,6 @@ public class BlogService {
     private BlogDetailMapper blogDetailMapper;
     @Autowired
     private TagMapper tagMapper;
-    @Autowired
-    private BlogMapper blogMapper;
 
     /**
      * 按照关键字和分页参数查询博客列表

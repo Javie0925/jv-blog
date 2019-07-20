@@ -90,6 +90,7 @@
     </h1>
     <div class="wrapper">
     <div class="timebox">
+      <h3 class="hometitle">往期文章</h3>
       <ul>
         <li v-for="v in pageResult.itemList"><span v-text="jv.formatDate(v.createTime,'yyyy-MM-dd')"></span><i><a :href="'/blog/'+v.blogId" target="_blank" v-text="v.title"></a></i></li>
       </ul>

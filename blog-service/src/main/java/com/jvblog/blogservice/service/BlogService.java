@@ -73,8 +73,7 @@ public class BlogService {
         Example example = new Example(BlogDetail.class);
         if(StringUtils.isNotBlank(key)){
             example.createCriteria().
-                    orLike("title", "%"+key+"%").
-                    andEqualTo("visible",true);// 剔除加密博客
+                    orLike("title", "%"+key+"%");
         }
         // 排序
         if(StringUtils.isNotBlank(sortBy)){
@@ -83,13 +82,22 @@ public class BlogService {
         }
         // 去除不需要的字段
         example.excludeProperties("content");
+        // 剔除不可见
+        example.and().andEqualTo("visible", true);
         // 查询
         List<BlogDetail> blogDetails = blogDetailMapper.selectByExample(example);
         // 判空
         if(CollectionUtils.isEmpty(blogDetails)){
             throw new BlogException(ExceptionEnum.BLOG_NOT_FOUND);
         }
-
+        // 剔除加密博客
+        /*for(int i=0;i<blogDetails.size();){
+            if (!blogDetails.get(i).getVisible()){
+                blogDetails.remove(blogDetails.get(i));
+                continue;
+            }
+            i++;
+        }*/
         // 补充tag
         blogDetails.forEach(detail->{
             Tag tag = tagMapper.selectByPrimaryKey(detail.getTagId());
@@ -204,8 +212,7 @@ public class BlogService {
         PageHelper.startPage(pageNum, pageSize);
         // 过滤
         Example example = new Example(BlogDetail.class);
-        example.createCriteria().andEqualTo("tagId", tagId).
-                andEqualTo("visible", true);// 剔除加密博客
+        example.createCriteria().andEqualTo("tagId", tagId);
         // 排序
         if(StringUtils.isNotBlank(sortBy)){
             String orderByClause = sortBy + (desc?" desc":" asc");
@@ -213,13 +220,22 @@ public class BlogService {
         }
         // 去除不需要的字段
         example.excludeProperties("content");
+        // 剔除不可见
+        example.and().andEqualTo("visible", true);
         // 查询
         List<BlogDetail> blogDetails = blogDetailMapper.selectByExample(example);
         // 判空
         if(CollectionUtils.isEmpty(blogDetails)){
             throw new BlogException(ExceptionEnum.BLOG_NOT_FOUND);
         }
-
+        // 剔除加密博客
+        /*for(int i=0;i<blogDetails.size();){
+            if (!blogDetails.get(i).getVisible()){
+                blogDetails.remove(blogDetails.get(i));
+                continue;
+            }
+            i++;
+        }*/
         // 补充tag
         blogDetails.forEach(detail->{
             Tag tag = tagMapper.selectByPrimaryKey(detail.getTagId());
@@ -249,8 +265,7 @@ public class BlogService {
         Example example = new Example(BlogDetail.class);
         if(StringUtils.isNotBlank(key)){
             example.createCriteria().
-                    orLike(zone, "%"+key+"%").
-                    andEqualTo("visible", true);// 剔除加密博客
+                    orLike(zone, "%"+key+"%");
         }
         // 排序
         if(StringUtils.isNotBlank(sortBy)){
@@ -259,13 +274,22 @@ public class BlogService {
         }
         // 去除不需要的字段
         example.excludeProperties("content");
+        // 剔除不可见
+        example.and().andEqualTo("visible", true);
         // 查询
         List<BlogDetail> blogDetails = blogDetailMapper.selectByExample(example);
         // 判空
         if(CollectionUtils.isEmpty(blogDetails)){
             throw new BlogException(ExceptionEnum.BLOG_NOT_FOUND);
         }
-
+        // 剔除加密博客
+        /*for(int i=0;i<blogDetails.size();){
+            if (!blogDetails.get(i).getVisible()){
+                blogDetails.remove(blogDetails.get(i));
+                continue;
+            }
+            i++;
+        }*/
         // 补充tag
         blogDetails.forEach(detail->{
             Tag tag = tagMapper.selectByPrimaryKey(detail.getTagId());
@@ -438,8 +462,7 @@ public class BlogService {
         Example.Criteria criteria = example.createCriteria();
         if(tagIds.length!=0){
             for(int id:tagIds) {
-                criteria.orEqualTo("tagId", id).
-                        andEqualTo("visible", true);// 剔除加密博客
+                criteria.orEqualTo("tagId", id);
             }
         }
         // 排序
@@ -449,13 +472,22 @@ public class BlogService {
         }
         // 去除不需要的字段
         example.excludeProperties("content");
+        // 剔除不可见
+        example.and().andEqualTo("visible", true);
         // 查询
         List<BlogDetail> blogDetails = blogDetailMapper.selectByExample(example);
         // 判空
         if(CollectionUtils.isEmpty(blogDetails)){
             throw new BlogException(ExceptionEnum.BLOG_NOT_FOUND);
         }
-
+        // 剔除加密博客
+        /*for(int i=0;i<blogDetails.size();){
+            if (!blogDetails.get(i).getVisible()){
+                blogDetails.remove(blogDetails.get(i));
+                continue;
+            }
+            i++;
+        }*/
         // 补充tag
         blogDetails.forEach(detail->{
             Tag tag = tagMapper.selectByPrimaryKey(detail.getTagId());
