@@ -132,14 +132,15 @@
                         <div class="news_about"><strong>简介</strong><span v-text="blogVo.blogDetail.summary"></span></div>
                         <div class="news_infos" v-html="blogVo.blogDetail.content"></div>
                     </div>
-                    <div class="share" v-if="blogVo.blogDetail.originalUrl">
+                    <div class="share" v-if="blogVo.blogDetail.original">
                         <!--<img src="https://www.yangqq.com/skin/jxhx/images/wxgzh.jpg">-->
-                        <p>原文链接：<a :href="blogVo.blogDetail.originalUrl" target="_blank" v-text="blogVo.blogDetail.originalUrl" ></a></p>
-                    </div>
-                    <div class="share">
-                        <!--<img src="https://www.yangqq.com/skin/jxhx/images/wxgzh.jpg">-->
-                        <!--<p>扫描关注青于蓝微信公众号，第一时间获取网站模板更新动态</p>-->
+                        <p>版权声明：本文为博主原创文章，转载请附上博文链接,谢谢！</p>
                         <p>本文地址：<a href="javascript:void(0)" v-text="'http://jvblog.nat100.top/blog/'+blogVo.blogDetail.blogId" ></a></p>
+                    </div>
+                    <div class="share" v-else >
+                        <!--<img src="https://www.yangqq.com/skin/jxhx/images/wxgzh.jpg">-->
+                        <p v-if="blogVo.blogDetail.originalUrl">原文地址：<a :href="blogVo.blogDetail.originalUrl" target="_blank" v-text="blogVo.blogDetail.originalUrl" ></a></p>
+                        <p>本文转自网络文章，转载此文章仅为分享知识，如有侵权，请联系博主进行删除。</p>
                     </div>
                     <p>
                         <span class="diggit" @click="addLike"><a href="javascript:void(0)" v-text="like"> 很赞哦！ </a>(<b id="diggnum" v-text="blogVo.blogDetail.likeNum">59</b>)</span>

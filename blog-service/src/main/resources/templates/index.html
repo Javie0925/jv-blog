@@ -161,7 +161,7 @@
     <!--文章列表-->
     <div class="blogs-div" data-scroll-reveal="enter bottom over 1s" v-for="(v,k) in pageResult.itemList" :key="k">
       <h3 class="blogtitle"><a :href="'/blog/'+v.blogId" v-text="v.title"></a></h3>
-      <span class="blogpic" v-if="v.profileImage && v.profileImage.length>10"><a :href="'/blog/'+v.blogId" title="v.title"><img :src="v.profileImage" alt=""></a></span>
+      <span class="blogpic" v-if="v.profileImage && v.profileImage.length>10"><a :href="'/blog/'+v.blogId" :title="v.title"><img :src="v.profileImage" alt=""></a></span>
       <p class="blogtext" ><a v-text="v.summary"></a></p>
       <div class="bloginfo">
         <ul>

@@ -183,10 +183,13 @@ article { width: 1200px; margin-top: 75px;margin-left: auto;margin-right: auto }
 .news_infos { line-height: 24px; text-align: justify; }
 .news_infos p { margin-bottom: 10px }
 .news_infos img { max-width: 650px; height: auto; }
-.share { padding: 20px; }
+/*上一篇、下一篇*/
 .nextinfo { line-height: 24px; width: 100%; background: #FFF; border-radius: 10px; overflow: hidden; margin: 20px 20px }/*��һƪ��һƪ*/
 .nextinfo p { padding: 4px 10px; border-radius: 5px; }
 .nextinfo a:hover { color: #000; text-decoration: underline }
+@media screen and (max-width: 768px) {
+    .nextinfo { margin:20px 10px }
+}
 /*info页*/
 .info-lbox {
     width: 70%;
@@ -194,8 +197,14 @@ article { width: 1200px; margin-top: 75px;margin-left: auto;margin-right: auto }
     overflow: hidden;
 }
 .infos {  overflow: hidden; background: #FFF; margin: 20px 0 ;}
+/*分享*/
 .share { margin:20px;padding: 10px 20px; background: #f7f7f7; border-left: 3px solid #000; overflow: hidden }
 .share img { width: 100px; float: left; margin-right: 20px; }
+.share p { margin: 10px 0px}
+@media screen and (max-width: 768px) {
+    .share { margin:20px 10px }
+}
+
 .diggit { display: block; width: 160px; margin: 20px auto; background: #E2523A; color: #fff; box-shadow: 1px 2px 6px 0px rgba(0,0,0,.2); border-radius: 3px; line-height: 40px; text-align: center; }
 .diggit a { color: #fff }
 /*相关文章*/

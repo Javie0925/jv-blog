@@ -182,6 +182,7 @@ public class BlogService {
         if (
                 StringUtils.isEmpty(blogDetail.getTitle())
                 ||StringUtils.isEmpty(blogDetail.getSummary())
+                ||blogDetail.getTagId()==null
         ){
 
             throw new BlogException(ExceptionEnum.BLOG_ADD_FAIL);

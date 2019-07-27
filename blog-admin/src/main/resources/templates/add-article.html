@@ -283,7 +283,7 @@
         },
         methods: {
             submitForm(){
-                if(!this.blogDetail.title||!this.blogDetail.summary){
+                if(!this.blogDetail.title||!this.blogDetail.summary||!this.blogDetail.tagId){
                     window.alert("数据不能为空");
                     return;
                 }
