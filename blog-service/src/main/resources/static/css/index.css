@@ -180,9 +180,12 @@ article { width: 1200px; margin-top: 75px;margin-left: auto;margin-right: auto }
 .news_content p { overflow: hidden; padding-bottom: 4px; padding-top: 6px; word-wrap: break-word; }
 .tags a { background: #F4650E; padding: 3px 8px; margin: 0 5px 0 0; color: #fff; }
 .tags { margin: 10px 0; }
+/*博客正文*/
 .news_infos { line-height: 24px; text-align: justify; }
 .news_infos p { margin-bottom: 10px }
-.news_infos img { max-width: 650px; height: auto; }
+.news_infos a { color: blue; }
+.news_infos img { max-width: 780px; height: auto; }
+.news_infos pre {margin:20px 0 20px 0 ;padding: 20px;border:1px solid #e1e3e1;background-color: black;overflow-x: auto}
 /*上一篇、下一篇*/
 .nextinfo { line-height: 24px; width: 100%; background: #FFF; border-radius: 10px; overflow: hidden; margin: 20px 20px }/*��һƪ��һƪ*/
 .nextinfo p { padding: 4px 10px; border-radius: 5px; }
